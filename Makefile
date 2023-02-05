@@ -7,13 +7,13 @@ ALIBFT = Others/libft/libft.a
 OBJS = $(SRCS:.c=.o)
 
 LFLAGS = -Lmlx -lXext -lX11
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -Imlx
 CC = gcc
 
 all: $(NAME)
 
-$(NAME): $(AMLX) $(ALIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
+$(NAME): $(OBJS) $(AMLX) $(ALIBFT)
+	$(CC) -o $(NAME) $(OBJS) $(AMLX) $(ALIBFT) $(LFLAGS)
 
 $(AMLX):
 	make -C mlx
@@ -28,7 +28,7 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
-	make fclean -C mlx
+	#make fclean -C mlx
 	make fclean -C Others/libft
 
 re: fclean all
