@@ -4,16 +4,14 @@ SRCS = main.c
 AMLX = mlx/libmlx.a
 ALIBFT = Others/libft/libft.a
 
-OBJS = $(SRCS:.c=.o)
-
-LFLAGS = -Lmlx -lXext -lX11
-CFLAGS = -Wall -Werror -Wextra -Imlx
+LFLAGS = -lXext -lX11 -lm
+CFLAGS = -Wall -Werror -Wextra
 CC = gcc
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(AMLX) $(ALIBFT)
-	$(CC) -o $(NAME) $(OBJS) $(AMLX) $(ALIBFT) $(LFLAGS)
+$(NAME): $(AMLX) $(ALIBFT) $(SRCS) cube.h
+	$(CC) $(CFLAGS) $(SRCS) $(AMLX) $(ALIBFT) $(LFLAGS) -o $(NAME) 
 
 $(AMLX):
 	make -C mlx
@@ -28,7 +26,6 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
-	#make fclean -C mlx
 	make fclean -C Others/libft
 
 re: fclean all
