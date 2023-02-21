@@ -1,5 +1,32 @@
 #include "cube.h"
 
+int	map_put1(int _map[10][10], t_cube *ptr)
+{
+	int	x;
+	int	y;
+	int	i;
+	int	j;
+
+	y = 0;
+	i = 0;
+	while (i<10)
+	{	
+		x = 0;
+		j = 0;
+		while (j < 10)
+		{
+			if (!square_put(_map[i][j], x, y, ptr))
+				return (0);
+			x += SQR_X;
+			j++;
+		}
+		y += SQR_Y;
+		i++;
+	}
+	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->data->img, 0, 0);
+	return (1);
+}
+
 int	ft_error(char *str)
 {
 	ft_putstr_fd(str, 2);
@@ -40,14 +67,19 @@ t_player *get_player_coordinate(int _map[10][10])
 t_cube	*start_window(void)
 {
 	t_cube *cube;
+	int a;
 
 	cube = (t_cube *)malloc(sizeof(t_cube));
+	cube->data = malloc(sizeof(t_data));
 	cube->mlx = mlx_init();
 	cube->win = mlx_new_window(cube->mlx, WIN_X, WIN_Y, "Cube3D");
 	cube->p = (t_player *)malloc(sizeof(t_player));
 	cube->p = get_player_coordinate(map);
 	cube->p->dx = cos(cube->p->a) * 5;
 	cube->p->dy = sin(cube->p->a) * 5;
+	cube->data->img = mlx_new_image(cube->mlx, WIN_X, WIN_Y);
+	cube->data->addr = (int *)mlx_get_data_addr(cube->data->img, &a, &a, &a);
+	map_put1( map, cube);
 	return (cube);
 }
 
@@ -90,19 +122,17 @@ int	square_put(int type, int x, int y, t_cube *ptr)
 		while (i < SQR_LENGTH)
 		{
 			if (j < SQR_LENGTH)
-			{
-				if (mlx_pixel_put(ptr->mlx, ptr->win, x + i, y + j, (0x0000FF00 + (int)(type*255))) != 0)
-					return (0);
-			}
+				ptr->data->addr[(y + j) * WIN_X + x + i] = 0x0000FF00 + (int)(type*255);
+				// mlx_pixel_put(ptr->mlx, ptr->win, x + i, y + j, (0x0000FF00 + (int)(type*255)));
 			else
-				if (mlx_pixel_put(ptr->mlx, ptr->win, x + i, y + j, BLUE) != 0)
-					return (0);
+				ptr->data->addr[(y + j) * WIN_X + x + i] = BLUE;
+				// mlx_pixel_put(ptr->mlx, ptr->win, x + i, y + j, BLUE);
 			i++;
 		}
 		while (i < SQR_X)
 		{
-			if (mlx_pixel_put(ptr->mlx, ptr->win, x + i, y + j, BLUE) != 0)
-				return (0);
+			ptr->data->addr[(y + j) * WIN_X + x + i] = BLUE;
+			// mlx_pixel_put(ptr->mlx, ptr->win, x + i, y + j, BLUE);
 			i++;
 		}
 		j++;
@@ -110,29 +140,9 @@ int	square_put(int type, int x, int y, t_cube *ptr)
 	return (1);
 }
 
-int	map_put(int _map[10][10], t_cube *ptr)
+int	map_put(t_cube *ptr)
 {
-	int	x;
-	int	y;
-	int	i;
-	int	j;
-
-	y = 0;
-	i = 0;
-	while (i<10)
-	{	
-		x = 0;
-		j = 0;
-		while (j < 10)
-		{
-			if (!square_put(_map[i][j], x, y, ptr))
-				return (0);
-			x += SQR_X;
-			j++;
-		}
-		y += SQR_Y;
-		i++;
-	}
+	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->data->img, 0, 0);
 	return (1);
 }
 
@@ -178,9 +188,8 @@ void	direction(int keycode, t_cube *ptr)
 int	loop(t_cube *ptr)
 {
 	(void)ptr;
-	usleep(260000);
 	mlx_clear_window(ptr->mlx, ptr->win);
-	if (!map_put(map, ptr))
+	if (!map_put(ptr))
 		exit (ft_error(ERR_MAP));
 	if (!player_put(ptr))
 		exit(ft_error("Player Error!"));

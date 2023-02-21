@@ -4,15 +4,14 @@
 # include <math.h>
 # include <stdio.h>
 # include "mlx/mlx.h"
-# include "mlx/mlx_int.h"
 # include "Others/libft/LIB/libft.h"
 
 # define PI 3.1415926535
 
-# define A 97//0
-# define S 115//1
-# define D 100//2
-# define W 119//13
+# define A 0
+# define S 1
+# define D 2
+# define W 13
 # define O 111//31
 # define P 112//35
 # define Z 122//6
@@ -30,20 +29,20 @@
 # define D_ 65364//125
 # define L_ 65361//123
 # define R_ 65363//124
-# define ESC 65307//53
+# define ESC 53
 
-# define WIN_X 330
-# define WIN_Y 330
+# define WIN_X 1100
+# define WIN_Y 1100
 
 # define ERR_MAP "Map Error!"
 # define MAP_RET -12
 
-# define SQR_X 33
-# define SQR_Y 33
-# define SQR_LENGTH 30
+# define SQR_X 110
+# define SQR_Y 110
+# define SQR_LENGTH 100
 
-# define PLAYER 5
-# define P_SPD 2
+# define PLAYER 50
+# define P_SPD 20
 
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
@@ -74,12 +73,20 @@ typedef struct s_player
     int a;
 }   t_player;
 
+typedef struct s_data
+{
+    int     *addr;
+    void    *img;
+}   t_data;
+
 typedef struct s_cube
 {
     void        *mlx;
     void        *win;
     t_player    *p;
+    t_data      *data;
 }   t_cube;
 
+int	square_put(int type, int x, int y, t_cube *ptr);
 
 #endif
