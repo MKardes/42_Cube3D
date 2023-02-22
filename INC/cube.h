@@ -3,8 +3,8 @@
 
 # include <math.h>
 # include <stdio.h>
-# include "mlx/mlx.h"
-# include "Others/libft/LIB/libft.h"
+# include "../Others/mlx/mlx.h"
+# include "../Others/libft/LIB/libft.h"
 
 # define PI 3.1415926535
 
@@ -27,8 +27,8 @@
 # define B7 55//26
 # define U_ 65362//126
 # define D_ 65364//125
-# define L_ 65361//123
-# define R_ 65363//124
+# define L_ 123
+# define R_ 124
 # define ESC 53
 
 # define WIN_X 1100
@@ -51,18 +51,6 @@
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
 
-int map[10][10] = {
-    {1,1,1,1,1,1,1,1,1,1},
-    {1,0,0,1,0,0,0,0,0,1},
-    {1,0,0,1,0,0,0,0,0,1},
-    {1,0,0,1,0,0,0,1,1,1},
-    {1,0,0,1,0,0,0,0,0,1},
-    {1,0,0,0,0,0,1,1,1,1},
-    {1,0,1,0,0,0,0,0,0,1},
-    {1,0,1,0,0,1,1,0,0,1},
-    {1,0,0,0,0,0,2,0,0,1},
-    {1,1,1,1,1,1,1,1,1,1},
-};
 
 typedef struct s_player
 {
@@ -84,9 +72,27 @@ typedef struct s_cube
     void        *mlx;
     void        *win;
     t_player    *p;
-    t_data      *data;
+    t_data      *map;
 }   t_cube;
 
-int	square_put(int type, int x, int y, t_cube *ptr);
+
+//window
+t_cube  *start_window(void);
+
+//loop
+int     loop(t_cube *ptr);
+
+//player
+int     player_put(t_cube *ptr);
+
+//map
+int     map_put(t_cube *ptr);
+
+//keys
+int     key_states(int keycode, t_cube *cube);
+int     ft_key_esc(t_cube *ptr);
+
+//utils
+int	ft_error(char *str);
 
 #endif
