@@ -26,7 +26,7 @@ void	direction(int keycode, t_cube *ptr)
 	{
 		ptr->p->x += P_SPD;
 	}
-	else if (keycode == R_)
+	else if (keycode == L_)
 	{
 		ptr->p->a += 0.1;
 		if (ptr->p->a > 2 * PI)
@@ -34,7 +34,7 @@ void	direction(int keycode, t_cube *ptr)
 		ptr->p->dx = cos(ptr->p->a) * 5;
 		ptr->p->dy = sin(ptr->p->a) * 5;
 	}
-	else if (keycode == L_)
+	else if (keycode == R_)
 	{
 		ptr->p->a -= 0.1;
 		if (ptr->p->a < 0)
