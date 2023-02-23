@@ -8,16 +8,16 @@ int	ft_key_esc(t_cube *ptr)
 
 void	direction(int keycode, t_cube *ptr)
 {
-	(void)ptr;
+	printf("key:%d\n",keycode);
 	if (keycode == W)
 	{
 		ptr->p->x += ptr->p->dx;
-		ptr->p->y += ptr->p->dy;
+		ptr->p->y -= ptr->p->dy;
 	}
 	else if (keycode == S)
 	{
 		ptr->p->x -= ptr->p->dx;
-		ptr->p->y -= ptr->p->dy;
+		ptr->p->y += ptr->p->dy;
 	}
 	else if (keycode == A)
 	{
@@ -47,7 +47,7 @@ void	direction(int keycode, t_cube *ptr)
 
 int	key_states(int keycode, t_cube *cube)
 {
-	if (keycode == W || keycode == A || keycode == S || keycode == D || keycode == U_ || keycode == D_)
+	if (keycode == W || keycode == A || keycode == S || keycode == D || keycode == L_ || keycode == R_)
 		direction(keycode, cube);
 	else if (keycode == ESC) 	
 		ft_key_esc(cube);

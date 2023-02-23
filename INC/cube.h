@@ -39,7 +39,7 @@
 
 # define SQR_X 110
 # define SQR_Y 110
-# define SQR_LENGTH 100
+# define SQR_LENGTH 105
 
 # define PLAYER 50
 # define P_SPD 20
@@ -54,11 +54,11 @@
 
 typedef struct s_player
 {
-    int x;
-    int y;
-    int dx;
-    int dy;
-    int a;
+    float x;
+    float y;
+    float dx;
+    float dy;
+    float a;
 }   t_player;
 
 typedef struct s_data

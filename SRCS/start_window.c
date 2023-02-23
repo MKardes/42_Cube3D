@@ -105,6 +105,7 @@ t_cube	*start_window(void)
 	cube->win = mlx_new_window(cube->mlx, WIN_X, WIN_Y, "Cube3D");
 	cube->p = (t_player *)malloc(sizeof(t_player));
 	cube->p = get_player_coordinate(f_map);
+	cube->p->a = PI / 2;
 	cube->p->dx = cos(cube->p->a) * 5;
 	cube->p->dy = sin(cube->p->a) * 5;
 	cube->map->img = mlx_new_image(cube->mlx, WIN_X, WIN_Y);
