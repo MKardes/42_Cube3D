@@ -8,7 +8,6 @@ int	ft_key_esc(t_cube *ptr)
 
 void	direction(int keycode, t_cube *ptr)
 {
-	printf("key:%d\n",keycode);
 	if (keycode == W)
 	{
 		ptr->p->x += ptr->p->dx;
