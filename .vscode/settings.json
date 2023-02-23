@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "cube.h": "c",
-        "mlx_int.h": "c",
-        "mlx.h": "c"
-    }
-}
