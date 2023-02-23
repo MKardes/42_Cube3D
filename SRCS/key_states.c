@@ -20,11 +20,13 @@ void	direction(int keycode, t_cube *ptr)
 	}
 	else if (keycode == A)
 	{
-		ptr->p->x -= P_SPD;
+		ptr->p->x -= ptr->p->dy;
+		ptr->p->y -= ptr->p->dx;
 	}
 	else if (keycode == D)
 	{
-		ptr->p->x += P_SPD;
+		ptr->p->x += ptr->p->dy;
+		ptr->p->y += ptr->p->dx;
 	}
 	else if (keycode == L_)
 	{

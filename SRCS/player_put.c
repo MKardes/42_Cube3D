@@ -18,5 +18,15 @@ int	player_put(t_cube *ptr)
 		}
 		i++;
 	}
+	i = 0;
+	int a = 0, b = 0;
+	while(i < 60)
+	{
+		mlx_pixel_put(ptr->mlx, ptr->win, ptr->p->x + b, ptr->p->y + a, BLACK);
+		printf("dx: %f, dy: %f\n",ptr->p->dx, ptr->p->dy);
+		a -= round(ptr->p->dy / (float)3);
+		b += round(ptr->p->dx / (float)3);
+		i++;
+	}
 	return (1);
 }
