@@ -31,18 +31,18 @@
 # define R_ 124
 # define ESC 53
 
-# define WIN_X 1100
-# define WIN_Y 1100
+# define WIN_X 800
+# define WIN_Y 800
 
 # define ERR_MAP "Map Error!"
 # define MAP_RET -12
 
-# define SQR_X 110
-# define SQR_Y 110
-# define SQR_LENGTH 105
+# define SQR_X (WIN_X / 10)
+# define SQR_Y (WIN_Y / 10)
+# define SQR_LENGTH (WIN_X / 10 - WIN_X / 200)
 
-# define PLAYER 50
-# define P_SPD 20
+# define PLAYER (WIN_X / 25)
+# define P_SPD (WIN_X / 50)
 
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
@@ -51,11 +51,15 @@
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
 
+typedef struct s_vect
+{
+    double x;
+    double y;
+}   t_vect;
 
 typedef struct s_player
 {
-    float x;
-    float y;
+    t_vect p;
     float dx;
     float dy;
     float a;

@@ -72,8 +72,8 @@ t_player *get_player_coordinate(int _map[10][10])
 	t_player	*player;
 	
 	player = (t_player *)malloc(sizeof(t_player));
-	player->x = -1;
-	player->y = -1;
+	player->p.x = -1;
+	player->p.y = -1;
 	i = 0;
 	while (i < 10)
 	{
@@ -83,8 +83,8 @@ t_player *get_player_coordinate(int _map[10][10])
 			if (_map[i][j] == 2)
 			{
 				_map[i][j] = 0;
-				player->x = j * SQR_X + (SQR_LENGTH / 2);
-				player->y = i * SQR_Y + (SQR_LENGTH / 2);
+				player->p.x = j * SQR_X + (SQR_LENGTH / 2);
+				player->p.y = i * SQR_Y + (SQR_LENGTH / 2);
 				return (player);
 			}
 			j++;

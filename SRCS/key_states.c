@@ -10,23 +10,23 @@ void	direction(int keycode, t_cube *ptr)
 {
 	if (keycode == W)
 	{
-		ptr->p->x += ptr->p->dx;
-		ptr->p->y -= ptr->p->dy;
+		ptr->p->p.x += ptr->p->dx * (float)(P_SPD / (float)10);
+		ptr->p->p.y -= ptr->p->dy * (float)(P_SPD / (float)10);
 	}
 	else if (keycode == S)
 	{
-		ptr->p->x -= ptr->p->dx;
-		ptr->p->y += ptr->p->dy;
+		ptr->p->p.x -= ptr->p->dx * (float)(P_SPD / (float)10);
+		ptr->p->p.y += ptr->p->dy * (float)(P_SPD / (float)10);
 	}
 	else if (keycode == A)
 	{
-		ptr->p->x -= ptr->p->dy;
-		ptr->p->y -= ptr->p->dx;
+		ptr->p->p.x -= ptr->p->dy * (float)(P_SPD / (float)10);
+		ptr->p->p.y -= ptr->p->dx * (float)(P_SPD / (float)10);
 	}
 	else if (keycode == D)
 	{
-		ptr->p->x += ptr->p->dy;
-		ptr->p->y += ptr->p->dx;
+		ptr->p->p.x += ptr->p->dy * (float)(P_SPD / (float)10);
+		ptr->p->p.y += ptr->p->dx * (float)(P_SPD / (float)10);
 	}
 	else if (keycode == L_)
 	{
