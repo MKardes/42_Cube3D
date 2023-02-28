@@ -6,29 +6,33 @@ int	ft_key_esc(t_cube *ptr)
 	exit(0);
 }
 
-void	direction(int keycode, t_cube *ptr)
+void	move_direction(t_keys keycode, t_cube *ptr)
 {
-	if (keycode == W)
+	if (keycode.w)
 	{
 		ptr->p->p.x += ptr->p->dx * (float)(P_SPD / (float)10);
 		ptr->p->p.y -= ptr->p->dy * (float)(P_SPD / (float)10);
 	}
-	else if (keycode == S)
+	if (keycode.s)
 	{
 		ptr->p->p.x -= ptr->p->dx * (float)(P_SPD / (float)10);
 		ptr->p->p.y += ptr->p->dy * (float)(P_SPD / (float)10);
 	}
-	else if (keycode == A)
+	if (keycode.a)
 	{
 		ptr->p->p.x -= ptr->p->dy * (float)(P_SPD / (float)10);
 		ptr->p->p.y -= ptr->p->dx * (float)(P_SPD / (float)10);
 	}
-	else if (keycode == D)
+	if (keycode.d)
 	{
 		ptr->p->p.x += ptr->p->dy * (float)(P_SPD / (float)10);
 		ptr->p->p.y += ptr->p->dx * (float)(P_SPD / (float)10);
 	}
-	else if (keycode == L_)
+}
+
+void	move_angle(t_keys keycode, t_cube *ptr)
+{
+	if (keycode.l)
 	{
 		ptr->p->a += 0.1;
 		if (ptr->p->a > 2 * PI)
@@ -36,7 +40,7 @@ void	direction(int keycode, t_cube *ptr)
 		ptr->p->dx = cos(ptr->p->a) * 5;
 		ptr->p->dy = sin(ptr->p->a) * 5;
 	}
-	else if (keycode == R_)
+	if (keycode.r)
 	{
 		ptr->p->a -= 0.1;
 		if (ptr->p->a < 0)
@@ -46,11 +50,38 @@ void	direction(int keycode, t_cube *ptr)
 	}
 }
 
-int	key_states(int keycode, t_cube *cube)
+int	key_press(int keycode, t_cube *cube)
 {
-	if (keycode == W || keycode == A || keycode == S || keycode == D || keycode == L_ || keycode == R_)
-		direction(keycode, cube);
-	else if (keycode == ESC) 	
+	if (keycode == W)
+		cube->keys.w = true;
+	else if (keycode == A)
+		cube->keys.a = true;
+	else if (keycode == S)
+		cube->keys.s = true;
+	else if (keycode == D)
+		cube->keys.d = true;
+	else if (keycode == L_)
+		cube->keys.l = true;
+	else if (keycode == R_)
+		cube->keys.r = true;
+	else if (keycode == ESC)
 		ft_key_esc(cube);
+	return (1);
+}
+
+int	key_release(int keycode, t_cube *cube)
+{
+	if (keycode == W)
+		cube->keys.w = false;
+	else if (keycode == A)
+		cube->keys.a = false;
+	else if (keycode == S)
+		cube->keys.s = false;
+	else if (keycode == D)
+		cube->keys.d = false;
+	else if (keycode == L_)
+		cube->keys.l = false;
+	else if (keycode == R_)
+		cube->keys.r = false;
 	return (1);
 }

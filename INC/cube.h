@@ -3,10 +3,12 @@
 
 # include <math.h>
 # include <stdio.h>
+# include <string.h>
+# include <stdbool.h>
 # include "../Others/mlx/mlx.h"
 # include "../Others/libft/LIB/libft.h"
 
-# define PI 3.1415926535
+# define PI M_PI//3.1415926535
 
 # define A 0
 # define S 1
@@ -31,22 +33,33 @@
 # define R_ 124
 # define ESC 53
 
-# define WIN_X 800
-# define WIN_Y 800
+# define WIN_X 1920
+# define WIN_Y 1080
+
+# define HEIGH 16
+# define WEIGH 20
+
+# define MAP_X (WEIGH * 75)
+# define MAP_Y (HEIGH * 75)
 
 # define ERR_MAP "Map Error!"
 # define MAP_RET -12
 
-# define SQR_X (WIN_X / 10)
-# define SQR_Y (WIN_Y / 10)
-# define SQR_LENGTH (WIN_X / 10 - WIN_X / 200)
+# define SQR_X 75
+# define SQR_Y 75
+# define SQR_LENGTH (SQR_X - 2)
 
-# define PLAYER (WIN_X / 25)
-# define P_SPD (WIN_X / 50)
+# define PLAYER (SQR_X / 3)
+//# define P_SPD 2
+
+# ifndef P_SPD
+#  define P_SPD (SQR_X / 5)
+# endif
+
 
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
-# define BLUE 0x000000FF
+# define BLUE 0xF00000FF
 # define CYAN 0x0000FFFF
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
@@ -57,12 +70,22 @@ typedef struct s_vect
     double y;
 }   t_vect;
 
+typedef struct s_keys
+{
+    bool    w;
+    bool    a;
+    bool    s;
+    bool    d;
+    bool    r;
+    bool    l;
+}   t_keys;
+
 typedef struct s_player
 {
     t_vect p;
-    float dx;
-    float dy;
-    float a;
+    double dx;
+    double dy;
+    double a;
 }   t_player;
 
 typedef struct s_data
@@ -75,6 +98,8 @@ typedef struct s_cube
 {
     void        *mlx;
     void        *win;
+    char        **f_map;
+    t_keys      keys;
     t_player    *p;
     t_data      *map;
 }   t_cube;
@@ -92,8 +117,11 @@ int     player_put(t_cube *ptr);
 //map
 int     map_put(t_cube *ptr);
 
-//keys
-int     key_states(int keycode, t_cube *cube);
+//keys;
+int     key_press(int keycode, t_cube *cube);
+int     key_release(int keycode, t_cube *cube);
+void	move_direction(t_keys keycode, t_cube *ptr);
+void	move_angle(t_keys keycode, t_cube *ptr);
 int     ft_key_esc(t_cube *ptr);
 
 //utils
