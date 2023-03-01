@@ -33,20 +33,20 @@
 # define R_ 124
 # define ESC 53
 
-# define WIN_X 1920
+# define WIN_X 1000
 # define WIN_Y 1080
 
 # define HEIGH 11
 # define WEIGH 11
 
-# define MAP_X (WEIGH * 75)
-# define MAP_Y (HEIGH * 75)
+# define MAP_X (WEIGH * 64)
+# define MAP_Y (HEIGH * 64)
 
 # define ERR_MAP "Map Error!"
 # define MAP_RET -12
 
-# define SQR_X 75
-# define SQR_Y 75
+# define SQR_X 64
+# define SQR_Y 64
 # define SQR_LENGTH (SQR_X - 1)
 
 # define PLAYER 4
