@@ -8,5 +8,6 @@ int	loop(t_cube *ptr)
 		exit (ft_error(ERR_MAP));
 	if (!player_put(ptr))
 		exit(ft_error("Player Error!"));
+	draw_rays(ptr);
 	return (1);
 }

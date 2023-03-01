@@ -36,8 +36,8 @@
 # define WIN_X 1920
 # define WIN_Y 1080
 
-# define HEIGH 16
-# define WEIGH 20
+# define HEIGH 11
+# define WEIGH 11
 
 # define MAP_X (WEIGH * 75)
 # define MAP_Y (HEIGH * 75)
@@ -47,10 +47,10 @@
 
 # define SQR_X 75
 # define SQR_Y 75
-# define SQR_LENGTH (SQR_X - 2)
+# define SQR_LENGTH (SQR_X - 1)
 
-# define PLAYER (SQR_X / 3)
-//# define P_SPD 2
+# define PLAYER 4
+# define P_SPD 2
 
 # ifndef P_SPD
 #  define P_SPD (SQR_X / 5)
@@ -59,7 +59,7 @@
 
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
-# define BLUE 0xF00000FF
+# define BLUE 0x000000FF
 # define CYAN 0x0000FFFF
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
@@ -126,5 +126,8 @@ int     ft_key_esc(t_cube *ptr);
 
 //utils
 int	ft_error(char *str);
+
+//draw
+void    draw_rays(t_cube *ptr);
 
 #endif

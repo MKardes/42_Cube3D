@@ -1,34 +1,19 @@
 #include "../INC/cube.h"
 
-char	map[HEIGH][WEIGH] = {
-	"    1111111111\n\0",
-	"    1001000001\n\0",
-	"    1000011111\n\0",
-	"1111100011\n\0",
-	"1001000001  111\n\0",
-	"1000001111  101\n\0",
-	"1010000001  111\n\0",
-	"11111000011\n\0",
-	"    1010011111\n\0",
-	"    1000000001\n\0",
-	"    1001110001\n\0",
-	"    1001 10111\n\0",
-	"11111001 101\n\0",
-	"100000N1 101\n\0",
-	"11111111 111\n\0"
-};	
-
-char	**get_it(char a[HEIGH][WEIGH])
+char	**get_it(void)
 {
-	int (i) = 0;
 	char **(ptr) = malloc(sizeof(char *) * HEIGH);
-	ptr[HEIGH - 1] = NULL;
-	while (i < HEIGH - 1)
-	{
-		ptr[i] = strdup(a[i]);
-		printf("%s", a[i]);
-		i++;
-	}
+	ptr[0] = strdup("1111111111\n");
+	ptr[1] = strdup("1000001101\n");
+	ptr[2] = strdup("1000001101\n");
+	ptr[3] = strdup("1111001101\n");
+	ptr[4] = strdup("1000000001\n");
+	ptr[5] = strdup("1001000001\n");
+	ptr[6] = strdup("1001000001\n");
+	ptr[7] = strdup("1001111101\n");
+	ptr[8] = strdup("10010000N1\n");
+	ptr[9] = strdup("1111111111\n");
+	ptr[10] = NULL;
 	return (ptr);
 }
 
@@ -45,7 +30,7 @@ void	square_put(char type, int x, int y, t_cube *ptr)
 		{
 			if (j < SQR_LENGTH)
 				ptr->map->addr[(y + j) * MAP_X + x + i]
-					= 0xF000FF00 + (int)(type * 255);
+					= 0x0000FF00 + (int)(type * 255);
 			else
 				ptr->map->addr[(y + j) * MAP_X + x + i] = BLUE;
 			i++;
@@ -145,7 +130,7 @@ t_cube	*start_window(void)
 
 	int (a) = 0;
 	cube = (t_cube *)malloc(sizeof(t_cube));
-	cube->f_map = get_it(map); //temporarily
+	cube->f_map = get_it(); //temporarily
 	cube->map = malloc(sizeof(t_data));
 	cube->mlx = mlx_init();
 	cube->win = mlx_new_window(cube->mlx, WIN_X, WIN_Y, "Cube3D");

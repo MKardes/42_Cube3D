@@ -7,7 +7,7 @@ ALIBFT = Others/libft/libft.a
 
 MFLAGS = -framework OpenGL -framework AppKit -o3
 LFLAGS = -IINC -lXext -lX11 -lm
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Wextra
 CC = gcc -g
 
 all: $(NAME)

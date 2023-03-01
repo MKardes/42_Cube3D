@@ -1,6 +1,6 @@
 #include "../INC/cube.h"
 
-void	line_put(t_cube *ptr, t_vect start, t_vect end)
+/* static void	line_put(t_cube *ptr, t_vect start, t_vect end)
 {
 	int (i) = -1;
 	double (dx) = end.x - start.x;
@@ -17,7 +17,7 @@ void	line_put(t_cube *ptr, t_vect start, t_vect end)
 		start.x += Xinc;
 		start.y += Yinc;
 	}
-}
+} */
 
 int	player_put(t_cube *ptr)
 {
