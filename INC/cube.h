@@ -49,8 +49,8 @@
 # define SQR_Y 64
 # define SQR_LENGTH (SQR_X - 1)
 
-# define PLAYER 4
-# define P_SPD 2
+# define PLAYER 20
+# define P_SPD 0.5
 
 # ifndef P_SPD
 #  define P_SPD (SQR_X / 5)
@@ -129,5 +129,8 @@ int	ft_error(char *str);
 
 //draw
 void    draw_rays(t_cube *ptr);
+void    draw_line(t_cube *ptr, t_vect start, t_vect end, int rgb);
+void    draw_line1(t_cube *ptr, t_vect start, t_vect end, int rgb);// fazla
+float   distance(t_vect p1, t_vect p2);
 
 #endif

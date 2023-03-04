@@ -4,13 +4,13 @@ char	**get_it(void)
 {
 	char **(ptr) = malloc(sizeof(char *) * HEIGH);
 	ptr[0] = strdup("1111111111\n");
-	ptr[1] = strdup("1000001101\n");
-	ptr[2] = strdup("1000001101\n");
-	ptr[3] = strdup("1111001101\n");
-	ptr[4] = strdup("1000000001\n");
+	ptr[1] = strdup("1000001001\n");
+	ptr[2] = strdup("1000001001\n");
+	ptr[3] = strdup("1111101001\n");
+	ptr[4] = strdup("1000001001\n");
 	ptr[5] = strdup("1001000001\n");
-	ptr[6] = strdup("1001000001\n");
-	ptr[7] = strdup("1001111101\n");
+	ptr[6] = strdup("1001011111\n");
+	ptr[7] = strdup("1001000001\n");
 	ptr[8] = strdup("10010000N1\n");
 	ptr[9] = strdup("1111111111\n");
 	ptr[10] = NULL;
@@ -81,13 +81,13 @@ int	map_to_img(t_cube *ptr)
 
 void	get_angle(t_player *p, char direction, int y, int x)
 {
-	if (direction == 'N')
+	if (direction == 'S')
 		p->a = PI / 2;
-	else if (direction == 'S')
+	else if (direction == 'N')
 		p->a = (3 * PI) / 2;
-	else if (direction == 'E')
-		p->a = 0;
 	else if (direction == 'W')
+		p->a = 0;
+	else if (direction == 'E')
 		p->a = PI;
 	p->p.x = x * SQR_X + (SQR_LENGTH / 2);
 	p->p.y = y * SQR_Y + (SQR_LENGTH / 2);

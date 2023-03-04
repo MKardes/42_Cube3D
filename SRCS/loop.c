@@ -2,12 +2,11 @@
 
 int	loop(t_cube *ptr)
 {
+	mlx_clear_window(ptr->mlx, ptr->win);
 	move_direction(ptr->keys, ptr);
 	move_angle(ptr->keys, ptr);
-	if (!map_put(ptr))
-		exit (ft_error(ERR_MAP));
-	if (!player_put(ptr))
-		exit(ft_error("Player Error!"));
+	map_put(ptr);
+	player_put(ptr);
 	draw_rays(ptr);
 	return (1);
 }

@@ -10,29 +10,29 @@ void	move_direction(t_keys keycode, t_cube *ptr)
 {
 	if (keycode.w)
 	{
-		ptr->p->p.x += ptr->p->dx * (float)(P_SPD / (float)10);
-		ptr->p->p.y -= ptr->p->dy * (float)(P_SPD / (float)10);
+		ptr->p->p.x += ptr->p->dx * P_SPD;
+		ptr->p->p.y += ptr->p->dy * P_SPD;
 	}
 	if (keycode.s)
 	{
-		ptr->p->p.x -= ptr->p->dx * (float)(P_SPD / (float)10);
-		ptr->p->p.y += ptr->p->dy * (float)(P_SPD / (float)10);
+		ptr->p->p.x -= ptr->p->dx * P_SPD;
+		ptr->p->p.y -= ptr->p->dy * P_SPD;
 	}
 	if (keycode.a)
 	{
-		ptr->p->p.x -= ptr->p->dy * (float)(P_SPD / (float)10);
-		ptr->p->p.y -= ptr->p->dx * (float)(P_SPD / (float)10);
+		ptr->p->p.x += ptr->p->dy * P_SPD;
+		ptr->p->p.y -= ptr->p->dx * P_SPD;
 	}
 	if (keycode.d)
 	{
-		ptr->p->p.x += ptr->p->dy * (float)(P_SPD / (float)10);
-		ptr->p->p.y += ptr->p->dx * (float)(P_SPD / (float)10);
+		ptr->p->p.x -= ptr->p->dy * P_SPD;
+		ptr->p->p.y += ptr->p->dx * P_SPD;
 	}
 }
 
 void	move_angle(t_keys keycode, t_cube *ptr)
 {
-	if (keycode.l)
+	if (keycode.r)
 	{
 		ptr->p->a += 0.1;
 		if (ptr->p->a > 2 * PI)
@@ -40,7 +40,7 @@ void	move_angle(t_keys keycode, t_cube *ptr)
 		ptr->p->dx = cos(ptr->p->a) * 5;
 		ptr->p->dy = sin(ptr->p->a) * 5;
 	}
-	if (keycode.r)
+	if (keycode.l)
 	{
 		ptr->p->a -= 0.1;
 		if (ptr->p->a < 0)
