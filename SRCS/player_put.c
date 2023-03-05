@@ -19,9 +19,9 @@ int	player_put(t_cube *ptr)
 		}
 		i++;
 	}
-	//t_vect p_end;
-	//p_end.x = ptr->p->p.x + ptr->p->dx * 10;
-	//p_end.y = ptr->p->p.y + ptr->p->dy * 10;
-	//draw_line(ptr, ptr->p->p, p_end, BLACK);
+	t_vect p_end;
+	p_end.x = ptr->p->p.x + ptr->p->dx * 10;
+	p_end.y = ptr->p->p.y + ptr->p->dy * 10;
+	draw_line(ptr, ptr->p->p, p_end, BLACK);
 	return (1);
 }

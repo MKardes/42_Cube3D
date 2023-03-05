@@ -17,68 +17,6 @@ char	**get_it(void)
 	return (ptr);
 }
 
-void	square_put(char type, int x, int y, t_cube *ptr)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	while (j < SQR_Y)
-	{
-		i = 0;
-		while (i < SQR_LENGTH)
-		{
-			if (j < SQR_LENGTH)
-				ptr->map->addr[(y + j) * MAP_X + x + i]
-					= 0x0000FF00 + (int)(type * 255);
-			else
-				ptr->map->addr[(y + j) * MAP_X + x + i] = BLUE;
-			i++;
-		}
-		while (i < SQR_X)
-		{
-			ptr->map->addr[(y + j) * MAP_X + x + i] = BLUE;
-			i++;
-		}
-		j++;
-	}
-}
-
-void	make_img_transparent(t_cube *ptr)
-{
-	int (i) = -1;
-	while (++i < MAP_X * MAP_Y)
-		ptr->map->addr[i] = 0xFF000000;
-}
-
-int	map_to_img(t_cube *ptr)
-{
-	int	x;
-	int	y;
-	int	i;
-	int	j;
-
-	y = 0;
-	i = 0;
-	make_img_transparent(ptr);
-	while (ptr->f_map[i])
-	{	
-		x = 0;
-		j = 0;
-		while (ptr->f_map[i][j] != '\n' && ptr->f_map[i][j] != '\0')
-		{
-			if (ptr->f_map[i][j] != ' ')
-				square_put(ptr->f_map[i][j] - 48, x, y, ptr);
-			x += SQR_X;
-			j++;
-		}
-		y += SQR_Y;
-		i++;
-	}
-	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->map->img, 0, 0);
-	return (1);
-}
-
 void	get_angle(t_player *p, char direction, int y, int x)
 {
 	if (direction == 'S')
@@ -132,11 +70,25 @@ t_cube	*start_window(void)
 	cube = (t_cube *)malloc(sizeof(t_cube));
 	cube->f_map = get_it(); //temporarily
 	cube->map = malloc(sizeof(t_data));
+	cube->top = malloc(sizeof(t_data));
+	cube->bot = malloc(sizeof(t_data));
+	cube->weightl = malloc(sizeof(t_data));
+	cube->weightd = malloc(sizeof(t_data));
 	cube->mlx = mlx_init();
 	cube->win = mlx_new_window(cube->mlx, WIN_X, WIN_Y, "Cube3D");
 	cube->p = get_player_coordinate(cube->f_map);
 	cube->map->img = mlx_new_image(cube->mlx, MAP_X, MAP_Y);
 	cube->map->addr = (int *)mlx_get_data_addr(cube->map->img, &a, &a, &a);
+	cube->top->img = mlx_new_image(cube->mlx, WIN_X, WIN_Y / 2);
+	cube->top->addr = (int *)mlx_get_data_addr(cube->top->img, &a, &a, &a);
+	cube->bot->img = mlx_new_image(cube->mlx, WIN_X, WIN_Y / 2);
+	cube->bot->addr = (int *)mlx_get_data_addr(cube->bot->img, &a, &a, &a);
+	cube->weightl->img = mlx_new_image(cube->mlx, 16, 4);
+	cube->weightl->addr = (int *)mlx_get_data_addr(cube->weightl->img, &a, &a, &a);
+	cube->weightd->img = mlx_new_image(cube->mlx, 16, 4);
+	cube->weightd->addr = (int *)mlx_get_data_addr(cube->weightd->img, &a, &a, &a);
 	map_to_img(cube);
+	top_bot_to_img(cube);
+	weight_to_img(cube);
 	return (cube);
 }
