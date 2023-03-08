@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <stdbool.h>
+# include <unistd.h>
 # include "../Others/mlx/mlx.h"
 # include "../Others/libft/LIB/libft.h"
 
@@ -34,26 +35,29 @@
 # define R_ 124
 # define ESC 53
 
-# define WIN_X 1050
-# define WIN_Y 600
+# define WIN_X 793//2527
+# define WIN_Y 500//1395
+
+# define ANGLE 66
+
+# define DEG 12
 
 # define BIT 4
-
-# define HEIGH 11
-# define WEIGH 11
-
-# define MAP_X (WEIGH * 16)
-# define MAP_Y (HEIGH * 16)
-
-# define ERR_MAP "Map Error!"
-# define MAP_RET -12
-
 # define SQR_X 16
 # define SQR_Y 16
 # define SQR_LENGTH (SQR_X - 1)
 
+# define HEIGH 11
+# define WEIGH 11
+
+# define MAP_X (WEIGH * SQR_X)
+# define MAP_Y (HEIGH * SQR_Y)
+
+# define ERR_MAP "Map Error!"
+# define MAP_RET -12
+
 # define PLAYER 10
-# define P_SPD 0.5
+# define P_SPD 0.1
 
 # ifndef P_SPD
 #  define P_SPD (SQR_X / 5)
@@ -104,11 +108,7 @@ typedef struct s_cube
     char        **f_map;
     t_keys      keys;
     t_player    *p;
-    t_data      *map;
-    t_data      *top;
-    t_data      *bot;
-    t_data      *weightl;
-    t_data      *weightd;
+    t_data      *frame;
 }   t_cube;
 
 
@@ -118,15 +118,12 @@ t_cube  *start_window(void);
 // to image
 int	map_to_img(t_cube *ptr);
 int	top_bot_to_img(t_cube *ptr);
-int	weight_to_img(t_cube *ptr);
 
 //loop
 int     loop(t_cube *ptr);
 
 //put functions
 int     player_put(t_cube *ptr);
-int     map_put(t_cube *ptr);
-int     top_bot_put(t_cube *ptr);
 
 //keys;
 int     key_press(int keycode, t_cube *cube);
@@ -141,7 +138,6 @@ int	ft_error(char *str);
 //draw
 void    draw_rays(t_cube *ptr);
 void    draw_line(t_cube *ptr, t_vect start, t_vect end, int rgb);
-void    draw_line1(t_cube *ptr, t_vect start, t_vect end, int rgb);// fazla
 float   distance(t_vect p1, t_vect p2);
 
 void    get_it_3d(t_cube *ptr, float distance, float ra, int r, int direction);

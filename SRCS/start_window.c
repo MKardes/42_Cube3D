@@ -69,26 +69,11 @@ t_cube	*start_window(void)
 	int (a) = 0;
 	cube = (t_cube *)malloc(sizeof(t_cube));
 	cube->f_map = get_it(); //temporarily
-	cube->map = malloc(sizeof(t_data));
-	cube->top = malloc(sizeof(t_data));
-	cube->bot = malloc(sizeof(t_data));
-	cube->weightl = malloc(sizeof(t_data));
-	cube->weightd = malloc(sizeof(t_data));
+	cube->frame = malloc(sizeof(t_data));
 	cube->mlx = mlx_init();
 	cube->win = mlx_new_window(cube->mlx, WIN_X, WIN_Y, "Cube3D");
 	cube->p = get_player_coordinate(cube->f_map);
-	cube->map->img = mlx_new_image(cube->mlx, MAP_X, MAP_Y);
-	cube->map->addr = (int *)mlx_get_data_addr(cube->map->img, &a, &a, &a);
-	cube->top->img = mlx_new_image(cube->mlx, WIN_X, WIN_Y / 2);
-	cube->top->addr = (int *)mlx_get_data_addr(cube->top->img, &a, &a, &a);
-	cube->bot->img = mlx_new_image(cube->mlx, WIN_X, WIN_Y / 2);
-	cube->bot->addr = (int *)mlx_get_data_addr(cube->bot->img, &a, &a, &a);
-	cube->weightl->img = mlx_new_image(cube->mlx, 16, 4);
-	cube->weightl->addr = (int *)mlx_get_data_addr(cube->weightl->img, &a, &a, &a);
-	cube->weightd->img = mlx_new_image(cube->mlx, 16, 4);
-	cube->weightd->addr = (int *)mlx_get_data_addr(cube->weightd->img, &a, &a, &a);
-	map_to_img(cube);
-	top_bot_to_img(cube);
-	weight_to_img(cube);
+	cube->frame->img = mlx_new_image(cube->mlx, WIN_X, WIN_Y);
+	cube->frame->addr = (int *)mlx_get_data_addr(cube->frame->img, &a, &a, &a);
 	return (cube);
 }

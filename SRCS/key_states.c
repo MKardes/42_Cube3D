@@ -8,25 +8,43 @@ int	ft_key_esc(t_cube *ptr)
 
 void	move_direction(t_keys keycode, t_cube *ptr)
 {
+	int (px) = (int)ptr->p->p.x >> BIT;
+	int (py) = (int)ptr->p->p.y >> BIT;
+	int (px_add_dx) = (int)(ptr->p->p.x+ptr->p->dx) >> BIT;
+	int (px_sub_dx) = (int)(ptr->p->p.x-ptr->p->dx) >> BIT;
+	int (px_add_dy) = (int)(ptr->p->p.x+ptr->p->dy) >> BIT;
+	int (px_sub_dy) = (int)(ptr->p->p.x-ptr->p->dy) >> BIT;
+	int (py_add_dy) = (int)(ptr->p->p.y+ptr->p->dy) >> BIT;
+	int (py_sub_dy) = (int)(ptr->p->p.y-ptr->p->dy) >> BIT;
+	int (py_add_dx) = (int)(ptr->p->p.y+ptr->p->dx) >> BIT;
+	int (py_sub_dx) = (int)(ptr->p->p.y-ptr->p->dx) >> BIT;
 	if (keycode.w)
 	{
-		ptr->p->p.x += ptr->p->dx * P_SPD;
-		ptr->p->p.y += ptr->p->dy * P_SPD;
+		if (ptr->f_map[py][px_add_dx] == '0')
+			ptr->p->p.x += ptr->p->dx * P_SPD;
+		if (ptr->f_map[py_add_dy][px] == '0')
+			ptr->p->p.y += ptr->p->dy * P_SPD;
 	}
 	if (keycode.s)
 	{
-		ptr->p->p.x -= ptr->p->dx * P_SPD;
-		ptr->p->p.y -= ptr->p->dy * P_SPD;
+		if (ptr->f_map[py][px_sub_dx] == '0')
+			ptr->p->p.x -= ptr->p->dx * P_SPD;
+		if (ptr->f_map[py_sub_dy][px] == '0')
+			ptr->p->p.y -= ptr->p->dy * P_SPD;
 	}
 	if (keycode.a)
 	{
-		ptr->p->p.x += ptr->p->dy * P_SPD;
-		ptr->p->p.y -= ptr->p->dx * P_SPD;
+		if (ptr->f_map[py][px_add_dy] == '0')
+			ptr->p->p.x += ptr->p->dy * P_SPD;
+		if (ptr->f_map[py_sub_dx][px] == '0')
+			ptr->p->p.y -= ptr->p->dx * P_SPD;
 	}
 	if (keycode.d)
 	{
-		ptr->p->p.x -= ptr->p->dy * P_SPD;
-		ptr->p->p.y += ptr->p->dx * P_SPD;
+		if (ptr->f_map[py][px_sub_dy] == '0')
+			ptr->p->p.x -= ptr->p->dy * P_SPD;
+		if (ptr->f_map[py_add_dx][px] == '0')
+			ptr->p->p.y += ptr->p->dx * P_SPD;
 	}
 }
 
@@ -34,7 +52,7 @@ void	move_angle(t_keys keycode, t_cube *ptr)
 {
 	if (keycode.r)
 	{
-		ptr->p->a += 0.1;
+		ptr->p->a += 0.1 * P_SPD * 3;
 		if (ptr->p->a > 2 * PI)
 			ptr->p->a -= PI * 2;
 		ptr->p->dx = cos(ptr->p->a) * 5;
@@ -42,7 +60,7 @@ void	move_angle(t_keys keycode, t_cube *ptr)
 	}
 	if (keycode.l)
 	{
-		ptr->p->a -= 0.1;
+		ptr->p->a -= 0.1 * P_SPD * 2;
 		if (ptr->p->a < 0)
 			ptr->p->a += PI * 2;
 		ptr->p->dx = cos(ptr->p->a) * 5;

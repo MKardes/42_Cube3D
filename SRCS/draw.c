@@ -4,13 +4,13 @@
 void    draw_rays(t_cube *ptr)
 {
     int         r = 0, mx, my, dof;
-    float       ra = ptr->p->a - (33 * DR);
+    float       ra = ptr->p->a - ((ANGLE / 2) * DR);
     int         direction;
     if (ra < 0)
         ra += 2 * PI;
     float       dy, dx, dist;
     t_vect  rayH, rayW;
-    while (r < 66)
+    while (r < ANGLE * DEG)
     {
         float distW = 10000;
         float distH = 10000;
@@ -107,7 +107,7 @@ void    draw_rays(t_cube *ptr)
             // draw_line(ptr, ptr->p->p, rayH, BLACK);
         }
         get_it_3d(ptr, dist, ra, r, direction);
-        ra+=DR;
+        ra += DR / DEG;
         if (ra >= (2 * PI))
             ra -= (2 * PI);
         r++;
