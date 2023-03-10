@@ -52,7 +52,7 @@ void	move_angle(t_keys keycode, t_cube *ptr)
 {
 	if (keycode.r)
 	{
-		ptr->p->a += 0.1 * P_SPD * 3;
+		ptr->p->a += 0.1 * P_SPD * 2;
 		if (ptr->p->a > 2 * PI)
 			ptr->p->a -= PI * 2;
 		ptr->p->dx = cos(ptr->p->a) * 5;

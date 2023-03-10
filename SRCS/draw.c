@@ -4,7 +4,7 @@
 void    draw_rays(t_cube *ptr)
 {
     int         r = 0, mx, my, dof;
-    float       ra = ptr->p->a - ((ANGLE / 2) * DR);
+    float       ra = ptr->p->a - (((float)ANGLE / 2) * DR);
     int         direction;
     if (ra < 0)
         ra += 2 * PI;
@@ -39,14 +39,14 @@ void    draw_rays(t_cube *ptr)
             rayH.x = ptr->p->p.x;
             dof = 8;
         }
-        while (dof < 8)
+        while (dof < HEIGH)
         {
             mx = (int)rayH.x >> BIT;
             my = (int)rayH.y >> BIT;
-            if (my >= 0 && mx >= 0 && my < 10 && mx < 10 && ptr->f_map[my][mx] == '1')
+            if (my >= 0 && mx >= 0 && my < HEIGH - 1 && mx < WEIGH - 1 && ptr->f_map[my][mx] == '1')
             {
                 distH = distance(ptr->p->p, rayH);
-                dof = 8;
+                dof = HEIGH;
             } 
             else
             {
@@ -78,14 +78,14 @@ void    draw_rays(t_cube *ptr)
             rayW.x = ptr->p->p.x;
             dof = 8;
         }
-        while (dof < 8)
+        while (dof < WEIGH)
         {
             mx = (int)rayW.x >> BIT;
             my = (int)rayW.y >> BIT;
-            if (my >= 0 && mx >= 0 && my < 10 && mx < 10 && ptr->f_map[my][mx] == '1')
+            if (my >= 0 && mx >= 0 && my < HEIGH - 1 && mx < WEIGH - 1 && ptr->f_map[my][mx] == '1')
             {
-                distW = distance(ptr->p->p, rayW);
-                dof = 8;
+                distW = distance(ptr->p->p, rayW); 
+                dof = WEIGH;
             }
             else
             {
@@ -98,13 +98,13 @@ void    draw_rays(t_cube *ptr)
         {
             dist = distW;
             direction = 0;
-            // draw_line(ptr, ptr->p->p, rayW, BLACK);
+            //draw_line(ptr, ptr->p->p, rayW, BLACK);
         }
         else
         {
             dist = distH;
             direction = 1;
-            // draw_line(ptr, ptr->p->p, rayH, BLACK);
+            //draw_line(ptr, ptr->p->p, rayH, BLACK);
         }
         get_it_3d(ptr, dist, ra, r, direction);
         ra += DR / DEG;

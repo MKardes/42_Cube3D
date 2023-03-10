@@ -2,6 +2,7 @@
 
 int	loop(t_cube *ptr)
 {
+	usleep(10000);
 	mlx_clear_window(ptr->mlx, ptr->win);
 	move_direction(ptr->keys, ptr);
 	move_angle(ptr->keys, ptr);

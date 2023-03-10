@@ -9,46 +9,73 @@
 # include "../Others/mlx/mlx.h"
 # include "../Others/libft/LIB/libft.h"
 
-# define PI M_PI//3.1415926535
+# define PI 3.1415926535//M_PI
 # define DR 0.0174532925
 
-# define A 0
-# define S 1
-# define D 2
-# define W 13
-# define O 111//31
-# define P 112//35
-# define Z 122//6
-# define X 120//7
-# define C 99//8
-# define V 118//9
-# define B1 49//18
-# define B2 50//19
-# define B3 51//20
-# define B4 52//21
-# define B5 53//23
-# define B6 54//22
-# define B7 55//26
-# define U_ 65362//126
-# define D_ 65364//125
-# define L_ 123
-# define R_ 124
-# define ESC 53
+# if defined(__APPLE__)
+#  define A 0
+#  define S 1
+#  define D 2
+#  define W 13
+#  define O 31
+#  define P 35
+#  define Z 6
+#  define X 7
+#  define C 8
+#  define V 9
+#  define B1 18
+#  define B2 19
+#  define B3 20
+#  define B4 21
+#  define B5 23
+#  define B6 22
+#  define B7 26
+#  define U_ 126
+#  define D_ 125
+#  define L_ 123
+#  define R_ 124
+#  define ESC 53
+# endif
+
+# if defined(linux)
+#  define A 97
+#  define S 115
+#  define D 100
+#  define W 119
+#  define O 111
+#  define P 112
+#  define Z 122
+#  define X 120
+#  define C 99 
+#  define V 118
+#  define B1 49
+#  define B2 50
+#  define B3 51
+#  define B4 52
+#  define B5 53
+#  define B6 54
+#  define B7 55
+#  define U_ 65362
+#  define D_ 65364
+#  define L_ 65361
+#  define R_ 65363
+#  define ESC 65307
+# endif
 
 # define WIN_X 793//2527
 # define WIN_Y 500//1395
 
-# define ANGLE 66
+# define ANGLE 66//66
 
-# define DEG 12
+# define DEG 12//12
 
 # define BIT 4
 # define SQR_X 16
 # define SQR_Y 16
 # define SQR_LENGTH (SQR_X - 1)
 
-# define HEIGH 11
-# define WEIGH 11
+# define HEIGH 21
+# define WEIGH 23
 
 # define MAP_X (WEIGH * SQR_X)
 # define MAP_Y (HEIGH * SQR_Y)
@@ -106,6 +133,8 @@ typedef struct s_cube
     void        *mlx;
     void        *win;
     char        **f_map;
+    int         mouse_first;
+    int         mouse_last;
     t_keys      keys;
     t_player    *p;
     t_data      *frame;
@@ -130,6 +159,7 @@ int     key_press(int keycode, t_cube *cube);
 int     key_release(int keycode, t_cube *cube);
 void	move_direction(t_keys keycode, t_cube *ptr);
 void	move_angle(t_keys keycode, t_cube *ptr);
+int     mouse_move(int x, int y, t_cube *cube);
 int     ft_key_esc(t_cube *ptr);
 
 //utils
