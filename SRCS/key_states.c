@@ -21,30 +21,30 @@ void	move_direction(t_keys keycode, t_cube *ptr)
 	if (keycode.w)
 	{
 		if (ptr->f_map[py][px_add_dx] == '0')
-			ptr->p->p.x += ptr->p->dx * P_SPD;
+			ptr->p->p.x += ptr->p->dx * P_SPD + ptr->p->dx * ptr->keys.shift * S_SPD;
 		if (ptr->f_map[py_add_dy][px] == '0')
-			ptr->p->p.y += ptr->p->dy * P_SPD;
+			ptr->p->p.y += ptr->p->dy * P_SPD + ptr->p->dy * ptr->keys.shift * S_SPD;
 	}
 	if (keycode.s)
 	{
 		if (ptr->f_map[py][px_sub_dx] == '0')
-			ptr->p->p.x -= ptr->p->dx * P_SPD;
+			ptr->p->p.x -= ptr->p->dx * P_SPD + ptr->p->dx * ptr->keys.shift * S_SPD;
 		if (ptr->f_map[py_sub_dy][px] == '0')
-			ptr->p->p.y -= ptr->p->dy * P_SPD;
+			ptr->p->p.y -= ptr->p->dy * P_SPD + ptr->p->dy * ptr->keys.shift * S_SPD;
 	}
 	if (keycode.a)
 	{
 		if (ptr->f_map[py][px_add_dy] == '0')
-			ptr->p->p.x += ptr->p->dy * P_SPD;
+			ptr->p->p.x += ptr->p->dy * P_SPD + ptr->p->dy * ptr->keys.shift * S_SPD;
 		if (ptr->f_map[py_sub_dx][px] == '0')
-			ptr->p->p.y -= ptr->p->dx * P_SPD;
+			ptr->p->p.y -= ptr->p->dx * P_SPD + ptr->p->dx * ptr->keys.shift * S_SPD;
 	}
 	if (keycode.d)
 	{
 		if (ptr->f_map[py][px_sub_dy] == '0')
-			ptr->p->p.x -= ptr->p->dy * P_SPD;
+			ptr->p->p.x -= ptr->p->dy * P_SPD + ptr->p->dy * ptr->keys.shift * S_SPD;
 		if (ptr->f_map[py_add_dx][px] == '0')
-			ptr->p->p.y += ptr->p->dx * P_SPD;
+			ptr->p->p.y += ptr->p->dx * P_SPD + ptr->p->dx * ptr->keys.shift * S_SPD;
 	}
 }
 
@@ -82,6 +82,10 @@ int	key_press(int keycode, t_cube *cube)
 		cube->keys.l = true;
 	else if (keycode == R_)
 		cube->keys.r = true;
+	else if (keycode == M)
+		cube->keys.m = true;
+	else if (keycode == SHIFT)
+		cube->keys.shift = true;
 	else if (keycode == ESC)
 		ft_key_esc(cube);
 	return (1);
@@ -101,5 +105,11 @@ int	key_release(int keycode, t_cube *cube)
 		cube->keys.l = false;
 	else if (keycode == R_)
 		cube->keys.r = false;
+	else if (keycode == M)
+		cube->keys.m = false;
+	else if (keycode == SHIFT)
+		cube->keys.shift = false;
+	else if (keycode == TAB)
+		cube->keys.tab = !cube->keys.tab;
 	return (1);
 }

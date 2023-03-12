@@ -17,12 +17,15 @@
 #  define S 1
 #  define D 2
 #  define W 13
+#  define M 46
 #  define O 31
 #  define P 35
 #  define Z 6
 #  define X 7
 #  define C 8
 #  define V 9
+#  define TAB 48
+#  define SHIFT 257
 #  define B1 18
 #  define B2 19
 #  define B3 20
@@ -62,17 +65,89 @@
 #  define ESC 65307
 # endif
 
-# define WIN_X 793//2527
-# define WIN_Y 500//1395
 
-# define ANGLE 66//66
+/* high resolution */
+# if defined(HIGH_SIZE)
+#  define WIN_X 2527
+#  define WIN_Y 1395
+ 
+#  define ANGLE 66
 
-# define DEG 12//12
+#  define WALLH  2.78
+#  define LENGTH 4
+#  define DEG    38.3
+ 
+#  define BIT 5
+#  define SQR_X 32
+#  define SQR_Y 32
+#  define SQR_LENGTH (SQR_X - 1)
 
-# define BIT 4
-# define SQR_X 16
-# define SQR_Y 16
-# define SQR_LENGTH (SQR_X - 1)
+#  define PLAYER 18
+#  define P_SPD 0.2
+# endif /* high resolution */
+/* high resolution */
+# if defined(HIGH_SIZE)
+#  define WIN_X 2527
+#  define WIN_Y 1395
+ 
+#  define ANGLE 66
+
+#  define WALLH  2.78
+#  define LENGTH 4
+#  define DEG    38.3
+ 
+#  define BIT 5
+#  define SQR_X 32
+#  define SQR_Y 32
+#  define SQR_LENGTH (SQR_X - 1)
+
+#  define PLAYER 18
+#  define P_SPD 0.2
+# endif /* high resolution */
+
+
+/* normal resolution */
+# if defined(NORMAL_SIZE)
+#  define WIN_X 1660
+#  define WIN_Y 948
+
+#  define ANGLE 66
+
+#  define WALLH  1.89
+#  define LENGTH 2
+#  define DEG    25.15
+
+#  define BIT 4
+#  define SQR_X 16
+#  define SQR_Y 16
+#  define SQR_LENGTH (SQR_X - 1)
+
+#  define PLAYER 10
+#  define P_SPD 0.1
+# endif /* normal resolution */
+
+
+/* low resolution */
+# if defined(LOW_SIZE)
+#  define WIN_X 793
+#  define WIN_Y 500
+
+#  define ANGLE 66
+
+#  define WALLH  1
+#  define LENGTH 1
+#  define DEG    12
+
+#  define BIT 3
+#  define SQR_X 8
+#  define SQR_Y 8
+#  define SQR_LENGTH (SQR_X - 1)
+
+#  define PLAYER 5
+#  define P_SPD 0.1
+# endif /* low resolution */
+
+# define S_SPD 0.2
 
 # define HEIGH 21
 # define WEIGH 23
@@ -82,14 +157,6 @@
 
 # define ERR_MAP "Map Error!"
 # define MAP_RET -12
-
-# define PLAYER 10
-# define P_SPD 0.1
-
-# ifndef P_SPD
-#  define P_SPD (SQR_X / 5)
-# endif
-
 
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
@@ -112,6 +179,9 @@ typedef struct s_keys
     bool    d;
     bool    r;
     bool    l;
+    bool    m;
+    bool    tab;
+    bool    shift;
 }   t_keys;
 
 typedef struct s_player
@@ -126,6 +196,7 @@ typedef struct s_data
 {
     int     *addr;
     void    *img;
+    int     length;
 }   t_data;
 
 typedef struct s_cube
@@ -138,6 +209,7 @@ typedef struct s_cube
     t_keys      keys;
     t_player    *p;
     t_data      *frame;
+    t_data      *textures;
 }   t_cube;
 
 
@@ -170,6 +242,6 @@ void    draw_rays(t_cube *ptr);
 void    draw_line(t_cube *ptr, t_vect start, t_vect end, int rgb);
 float   distance(t_vect p1, t_vect p2);
 
-void    get_it_3d(t_cube *ptr, float distance, float ra, int r, int direction);
+void    get_it_3d(t_cube *ptr, float distance, float ra, int r, int direction, float x);
 
 #endif

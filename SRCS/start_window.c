@@ -11,8 +11,8 @@ char	**get_it(void)
 	ptr[5] = strdup("1001  1000000000001\n");
 	ptr[6] = strdup("1001  1000101111111\n");
 	ptr[7] = strdup("1001111000101\n");
-	ptr[8] = strdup("1000000000101\n");
-	ptr[9] = strdup("1111100000111\n");
+	ptr[8] = strdup("1000010000101\n");
+	ptr[9] = strdup("1111000000111\n");
 	ptr[10] = strdup("   1100000111111111111\n");
 	ptr[11] = strdup("   1000000100000000001\n");
 	ptr[12] = strdup("   1000000000000001001\n");
@@ -20,8 +20,8 @@ char	**get_it(void)
 	ptr[14] = strdup("1111001000000000001\n");
 	ptr[15] = strdup("1000001000000000001\n");
 	ptr[16] = strdup("1001111000001111111\n");
-	ptr[17] = strdup("1000000000001\n");
-	ptr[18] = strdup("10000000000N1\n");
+	ptr[17] = strdup("1000000000N01\n");
+	ptr[18] = strdup("1000000000001\n");
 	ptr[19] = strdup("1111111111111\n");
 	ptr[20] = NULL;
 	return (ptr);
@@ -72,6 +72,30 @@ t_player	*get_player_coordinate(char **_map)
 	return (0);
 }
 
+void	open_textures(t_cube *cube)
+{
+	int	(x) = 0;
+	int	(y) = 0;
+	cube->textures = (t_data *)malloc(sizeof(t_data) * 4);
+	cube->textures[0].img = mlx_xpm_file_to_image(cube->mlx, "./Assets/LAVA/lava_1_diffuseOriginal.xpm", &x, &y);
+	cube->textures[0].addr = (int *)mlx_get_data_addr(cube->textures[0].img, &x, &cube->textures[0].length, &x);
+	cube->textures[1].img = mlx_xpm_file_to_image(cube->mlx, "./Assets/LAVA/lava_2_diffuseOriginal.xpm", &x, &y);
+	cube->textures[1].addr = (int *)mlx_get_data_addr(cube->textures[1].img, &x, &cube->textures[1].length, &x);
+	cube->textures[2].img = mlx_xpm_file_to_image(cube->mlx, "./Assets/LAVA/lava_3_diffuseOriginal.xpm", &x, &y);
+	cube->textures[2].addr = (int *)mlx_get_data_addr(cube->textures[2].img, &x, &cube->textures[2].length, &x);
+	cube->textures[3].img = mlx_xpm_file_to_image(cube->mlx, "./Assets/LAVA/lava_4_diffuseOriginal.xpm", &x, &y);
+	cube->textures[3].addr = (int *)mlx_get_data_addr(cube->textures[3].img, &x, &cube->textures[3].length, &x);
+	/* cube->textures[0].img = mlx_xpm_file_to_image(cube->mlx, "./Assets/Wall/StoneWall.xpm", &x, &y);
+	cube->textures[0].addr = (int *)mlx_get_data_addr(cube->textures[0].img, &x, &cube->textures[0].length, &x);
+	cube->textures[1].img = mlx_xpm_file_to_image(cube->mlx, "./Assets/Wall/ParticleBoard.xpm", &x, &y);
+	cube->textures[1].addr = (int *)mlx_get_data_addr(cube->textures[1].img, &x, &cube->textures[1].length, &x);
+	cube->textures[2].img = mlx_xpm_file_to_image(cube->mlx, "./Assets/Wall/Bricks_11.xpm", &x, &y);
+	cube->textures[2].addr = (int *)mlx_get_data_addr(cube->textures[2].img, &x, &cube->textures[2].length, &x);
+	cube->textures[3].img = mlx_xpm_file_to_image(cube->mlx, "./Assets/Wall/Bricks_03.xpm", &x, &y);
+	cube->textures[3].addr = (int *)mlx_get_data_addr(cube->textures[3].img, &x, &cube->textures[3].length, &x); */
+	// printf("%d, %d, %d, %d\n",cube->textures[0].length,cube->textures[1].length,cube->textures[2].length,cube->textures[3].length);
+}
+
 t_cube	*start_window(void)
 {
 	t_cube	*cube;
@@ -85,5 +109,16 @@ t_cube	*start_window(void)
 	cube->p = get_player_coordinate(cube->f_map);
 	cube->frame->img = mlx_new_image(cube->mlx, WIN_X, WIN_Y);
 	cube->frame->addr = (int *)mlx_get_data_addr(cube->frame->img, &a, &a, &a);
+	open_textures(cube);
+	cube->mouse_first = -500;
+	cube->keys.w = false;
+	cube->keys.a = false;
+	cube->keys.s = false;
+	cube->keys.d = false;
+	cube->keys.l = false;
+	cube->keys.r = false;
+	cube->keys.m = false;
+	cube->keys.shift = false;
+	cube->keys.tab = true;
 	return (cube);
 }

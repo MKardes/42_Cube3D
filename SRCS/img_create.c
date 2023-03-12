@@ -13,7 +13,7 @@ static void	square_put(char type, int x, int y, t_cube *ptr)
 		{
 			if (j < SQR_LENGTH)
 				ptr->frame->addr[(y + j) * WIN_X + x + i]
-					= 0x0000FF00 + (int)(type * 255);
+					= 0x00788900 + (int)(type * 255);
 			else
 				ptr->frame->addr[(y + j) * WIN_X + x + i] = BLUE;
 			i++;
@@ -60,8 +60,8 @@ int	top_bot_to_img(t_cube *ptr)
 	i = 0;
 	while (i < WIN_X * (WIN_Y / 2))
 	{
-        ptr->frame->addr[i] = 0xFA1272;
-        ptr->frame->addr[i + (WIN_X * WIN_Y / 2)] = 0xA42AF3;
+        ptr->frame->addr[i] = 0x3A3241;
+        ptr->frame->addr[i + (WIN_X * WIN_Y / 2)] = 0x9A3241;
 		i++;
 	}
 	return (1);

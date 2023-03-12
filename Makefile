@@ -1,5 +1,6 @@
 NAME = cube
-NAME_MAC = cube
+NAME_H = cube
+NAME_L = cube
 
 UNAME		:= $(shell uname -s)
 
@@ -15,7 +16,7 @@ ifeq ($(UNAME), Linux)
 	AMLX = Others/mlx_linux/libmlx.a
 	OS = "You are connected from -$(CYAN)$(UNAME)$(X)- 🐧 Welcome"
 else ifeq ($(UNAME), Darwin)
-	MFLAGS = -lXext -lX11 -lm
+	MFLAGS = -framework OpenGL -framework AppKit -o3
 	MLX = Others/mlx
 	AMLX = Others/mlx/libmlx.a
 	OS = "You are connected from 42 school's iMac 🖥 ! Welcome $(CYAN)$(USER)$(X)"
@@ -27,7 +28,14 @@ endif
 all: $(NAME)
 
 $(NAME): $(AMLX) $(ALIBFT) $(SRCS) INC/cube.h
-	$(CC) $(CFLAGS) $(SRCS) $(AMLX) $(ALIBFT) $(MFLAGS) -o $(NAME) 
+	$(CC) $(CFLAGS) $(SRCS) $(AMLX) $(ALIBFT) $(MFLAGS) -D NORMAL_SIZE=21 -o $(NAME) 
+
+high: $(AMLX) $(ALIBFT) $(SRCS) INC/cube.h
+	$(CC) $(CFLAGS) $(SRCS) $(AMLX) $(ALIBFT) $(MFLAGS)	-D HIGH_SIZE=21 -o $(NAME_H)
+
+low: $(AMLX) $(ALIBFT) $(SRCS) INC/cube.h
+	$(CC) $(CFLAGS) $(SRCS) $(AMLX) $(ALIBFT) $(MFLAGS)	-D LOW_SIZE=21 -o $(NAME_L)
+
 
 $(AMLX):
 	make -C $(MLX)
@@ -46,4 +54,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: re clean fclean all
+.PHONY: re clean fclean all high low sis

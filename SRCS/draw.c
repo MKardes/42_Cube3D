@@ -98,15 +98,16 @@ void    draw_rays(t_cube *ptr)
         {
             dist = distW;
             direction = 0;
-            //draw_line(ptr, ptr->p->p, rayW, BLACK);
+            rayH.x = rayW.y;
+            // draw_line(ptr, ptr->p->p, rayW, BLACK);
         }
         else
         {
             dist = distH;
             direction = 1;
-            //draw_line(ptr, ptr->p->p, rayH, BLACK);
+            // draw_line(ptr, ptr->p->p, rayH, BLACK);
         }
-        get_it_3d(ptr, dist, ra, r, direction);
+        get_it_Ş3d(ptr, dist, ra, r, direction, rayH.x);
         ra += DR / DEG;
         if (ra >= (2 * PI))
             ra -= (2 * PI);
