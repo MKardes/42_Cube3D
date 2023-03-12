@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_put.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mkardes <mkardes@student.42kocaeli.com.tr  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/12 09:55:41 by mkardes           #+#    #+#             */
+/*   Updated: 2023/03/12 12:08:28 by mkardes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../INC/cube.h"
 
 int	player_put(t_cube *ptr)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	if (!ptr->p)
 		return (0);
@@ -14,14 +26,10 @@ int	player_put(t_cube *ptr)
 		while (j < PLAYER)
 		{
 			ptr->frame->addr[(((int)ptr->p->p.y - (PLAYER / 2) + i) * WIN_X)
-				 + ((int)ptr->p->p.x - (PLAYER / 2) + j)] = RED;
+				+ ((int)ptr->p->p.x - (PLAYER / 2) + j)] = RED;
 			j++;
 		}
 		i++;
 	}
-	t_vect p_end;
-	p_end.x = ptr->p->p.x + ptr->p->dx * 5;
-	p_end.y = ptr->p->p.y + ptr->p->dy * 5;
-	draw_line(ptr, ptr->p->p, p_end, BLACK);
 	return (1);
 }

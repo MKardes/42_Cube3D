@@ -9,6 +9,7 @@
 # include "../Others/mlx/mlx.h"
 # include "../Others/libft/LIB/libft.h"
 
+
 # define PI 3.1415926535//M_PI
 # define DR 0.0174532925
 
@@ -65,87 +66,22 @@
 #  define ESC 65307
 # endif
 
+# define WIN_X 1660
+# define WIN_Y 948
 
-/* high resolution */
-# if defined(HIGH_SIZE)
-#  define WIN_X 2527
-#  define WIN_Y 1395
- 
-#  define ANGLE 66
+# define ANGLE 66
 
-#  define WALLH  2.78
-#  define LENGTH 4
-#  define DEG    38.3
- 
-#  define BIT 5
-#  define SQR_X 32
-#  define SQR_Y 32
-#  define SQR_LENGTH (SQR_X - 1)
+# define WALLH  1.89
+# define LENGTH 2
+# define DEG    25.15
+# define BIT 4
 
-#  define PLAYER 18
-#  define P_SPD 0.2
-# endif /* high resolution */
-/* high resolution */
-# if defined(HIGH_SIZE)
-#  define WIN_X 2527
-#  define WIN_Y 1395
- 
-#  define ANGLE 66
-
-#  define WALLH  2.78
-#  define LENGTH 4
-#  define DEG    38.3
- 
-#  define BIT 5
-#  define SQR_X 32
-#  define SQR_Y 32
-#  define SQR_LENGTH (SQR_X - 1)
-
-#  define PLAYER 18
-#  define P_SPD 0.2
-# endif /* high resolution */
-
-
-/* normal resolution */
-# if defined(NORMAL_SIZE)
-#  define WIN_X 1660
-#  define WIN_Y 948
-
-#  define ANGLE 66
-
-#  define WALLH  1.89
-#  define LENGTH 2
-#  define DEG    25.15
-
-#  define BIT 4
-#  define SQR_X 16
-#  define SQR_Y 16
-#  define SQR_LENGTH (SQR_X - 1)
+# define SQR_X 16
+# define SQR_Y 16
+# define SQR_LENGTH (SQR_X - 1)
 
 #  define PLAYER 10
 #  define P_SPD 0.1
-# endif /* normal resolution */
-
-
-/* low resolution */
-# if defined(LOW_SIZE)
-#  define WIN_X 793
-#  define WIN_Y 500
-
-#  define ANGLE 66
-
-#  define WALLH  1
-#  define LENGTH 1
-#  define DEG    12
-
-#  define BIT 3
-#  define SQR_X 8
-#  define SQR_Y 8
-#  define SQR_LENGTH (SQR_X - 1)
-
-#  define PLAYER 5
-#  define P_SPD 0.1
-# endif /* low resolution */
 
 # define S_SPD 0.2
 
@@ -165,10 +101,11 @@
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
 
+
 typedef struct s_vect
 {
-    double x;
-    double y;
+    float x;
+    float y;
 }   t_vect;
 
 typedef struct s_keys
@@ -187,9 +124,9 @@ typedef struct s_keys
 typedef struct s_player
 {
     t_vect p;
-    double dx;
-    double dy;
-    double a;
+    float dx;
+    float dy;
+    float a;
 }   t_player;
 
 typedef struct s_data
@@ -212,6 +149,7 @@ typedef struct s_cube
     t_data      *textures;
 }   t_cube;
 
+char    **get_it(void);// Temporarly
 
 //window
 t_cube  *start_window(void);
@@ -233,6 +171,11 @@ void	move_direction(t_keys keycode, t_cube *ptr);
 void	move_angle(t_keys keycode, t_cube *ptr);
 int     mouse_move(int x, int y, t_cube *cube);
 int     ft_key_esc(t_cube *ptr);
+void    key_w(t_cube *ptr, t_vect p, int px_add_dx, int py_add_dy);
+void    key_s(t_cube *ptr, t_vect p, int px_sub_dx, int py_sub_dy);
+void    key_a(t_cube *ptr, t_vect p, int px_add_dy, int py_sub_dx);
+void    key_d(t_cube *ptr, t_vect p, int px_sub_dy, int py_add_dx);
+
 
 //utils
 int	ft_error(char *str);
@@ -242,6 +185,6 @@ void    draw_rays(t_cube *ptr);
 void    draw_line(t_cube *ptr, t_vect start, t_vect end, int rgb);
 float   distance(t_vect p1, t_vect p2);
 
-void    get_it_3d(t_cube *ptr, float distance, float ra, int r, int direction, float x);
+void    get_it_3d(t_cube *ptr, float distance, t_vect r, t_vect x_dr);
 
 #endif

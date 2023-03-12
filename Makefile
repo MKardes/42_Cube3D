@@ -4,7 +4,7 @@ NAME_L = cube
 
 UNAME		:= $(shell uname -s)
 
-SRCS = SRCS/*.c
+SRCS = SRCS/*.c INC/get_it.c
 ALIBFT = Others/libft/libft.a
 
 CFLAGS = -Wall -Wextra
@@ -28,14 +28,7 @@ endif
 all: $(NAME)
 
 $(NAME): $(AMLX) $(ALIBFT) $(SRCS) INC/cube.h
-	$(CC) $(CFLAGS) $(SRCS) $(AMLX) $(ALIBFT) $(MFLAGS) -D NORMAL_SIZE=21 -o $(NAME) 
-
-high: $(AMLX) $(ALIBFT) $(SRCS) INC/cube.h
-	$(CC) $(CFLAGS) $(SRCS) $(AMLX) $(ALIBFT) $(MFLAGS)	-D HIGH_SIZE=21 -o $(NAME_H)
-
-low: $(AMLX) $(ALIBFT) $(SRCS) INC/cube.h
-	$(CC) $(CFLAGS) $(SRCS) $(AMLX) $(ALIBFT) $(MFLAGS)	-D LOW_SIZE=21 -o $(NAME_L)
-
+	$(CC) $(CFLAGS) $(SRCS) $(AMLX) $(ALIBFT) $(MFLAGS) -o $(NAME) 
 
 $(AMLX):
 	make -C $(MLX)

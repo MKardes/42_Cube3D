@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   img_create.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mkardes <mkardes@student.42kocaeli.com.tr  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/12 09:57:31 by mkardes           #+#    #+#             */
+/*   Updated: 2023/03/12 09:58:07 by mkardes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../INC/cube.h"
 
 static void	square_put(char type, int x, int y, t_cube *ptr)
@@ -60,8 +72,8 @@ int	top_bot_to_img(t_cube *ptr)
 	i = 0;
 	while (i < WIN_X * (WIN_Y / 2))
 	{
-        ptr->frame->addr[i] = 0x3A3241;
-        ptr->frame->addr[i + (WIN_X * WIN_Y / 2)] = 0x9A3241;
+		ptr->frame->addr[i] = 0x3A3241;
+		ptr->frame->addr[i + (WIN_X * WIN_Y / 2)] = 0x9A3241;
 		i++;
 	}
 	return (1);

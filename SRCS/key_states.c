@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_states.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mkardes <mkardes@student.42kocaeli.com.tr  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/12 12:08:40 by mkardes           #+#    #+#             */
+/*   Updated: 2023/03/12 12:09:21 by mkardes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../INC/cube.h"
 
 int	ft_key_esc(t_cube *ptr)
@@ -8,44 +20,26 @@ int	ft_key_esc(t_cube *ptr)
 
 void	move_direction(t_keys keycode, t_cube *ptr)
 {
-	int (px) = (int)ptr->p->p.x >> BIT;
-	int (py) = (int)ptr->p->p.y >> BIT;
-	int (px_add_dx) = (int)(ptr->p->p.x+ptr->p->dx) >> BIT;
-	int (px_sub_dx) = (int)(ptr->p->p.x-ptr->p->dx) >> BIT;
-	int (px_add_dy) = (int)(ptr->p->p.x+ptr->p->dy) >> BIT;
-	int (px_sub_dy) = (int)(ptr->p->p.x-ptr->p->dy) >> BIT;
-	int (py_add_dy) = (int)(ptr->p->p.y+ptr->p->dy) >> BIT;
-	int (py_sub_dy) = (int)(ptr->p->p.y-ptr->p->dy) >> BIT;
-	int (py_add_dx) = (int)(ptr->p->p.y+ptr->p->dx) >> BIT;
-	int (py_sub_dx) = (int)(ptr->p->p.y-ptr->p->dx) >> BIT;
+	t_vect	p;
+
+	p.x = (int)ptr->p->p.x >> BIT;
+	p.y = (int)ptr->p->p.y >> BIT;
+	int (px_add_dx) = (int)(ptr->p->p.x + ptr->p->dx) >> BIT;
+	int (px_sub_dx) = (int)(ptr->p->p.x - ptr->p->dx) >> BIT;
+	int (px_add_dy) = (int)(ptr->p->p.x + ptr->p->dy) >> BIT;
+	int (px_sub_dy) = (int)(ptr->p->p.x - ptr->p->dy) >> BIT;
+	int (py_add_dy) = (int)(ptr->p->p.y + ptr->p->dy) >> BIT;
+	int (py_sub_dy) = (int)(ptr->p->p.y - ptr->p->dy) >> BIT;
+	int (py_add_dx) = (int)(ptr->p->p.y + ptr->p->dx) >> BIT;
+	int (py_sub_dx) = (int)(ptr->p->p.y - ptr->p->dx) >> BIT;
 	if (keycode.w)
-	{
-		if (ptr->f_map[py][px_add_dx] == '0')
-			ptr->p->p.x += ptr->p->dx * P_SPD + ptr->p->dx * ptr->keys.shift * S_SPD;
-		if (ptr->f_map[py_add_dy][px] == '0')
-			ptr->p->p.y += ptr->p->dy * P_SPD + ptr->p->dy * ptr->keys.shift * S_SPD;
-	}
+		key_w(ptr, p, px_add_dx, py_add_dy);
 	if (keycode.s)
-	{
-		if (ptr->f_map[py][px_sub_dx] == '0')
-			ptr->p->p.x -= ptr->p->dx * P_SPD + ptr->p->dx * ptr->keys.shift * S_SPD;
-		if (ptr->f_map[py_sub_dy][px] == '0')
-			ptr->p->p.y -= ptr->p->dy * P_SPD + ptr->p->dy * ptr->keys.shift * S_SPD;
-	}
+		key_s(ptr, p, px_sub_dx, py_sub_dy);
 	if (keycode.a)
-	{
-		if (ptr->f_map[py][px_add_dy] == '0')
-			ptr->p->p.x += ptr->p->dy * P_SPD + ptr->p->dy * ptr->keys.shift * S_SPD;
-		if (ptr->f_map[py_sub_dx][px] == '0')
-			ptr->p->p.y -= ptr->p->dx * P_SPD + ptr->p->dx * ptr->keys.shift * S_SPD;
-	}
+		key_a(ptr, p, px_add_dy, py_sub_dx);
 	if (keycode.d)
-	{
-		if (ptr->f_map[py][px_sub_dy] == '0')
-			ptr->p->p.x -= ptr->p->dy * P_SPD + ptr->p->dy * ptr->keys.shift * S_SPD;
-		if (ptr->f_map[py_add_dx][px] == '0')
-			ptr->p->p.y += ptr->p->dx * P_SPD + ptr->p->dx * ptr->keys.shift * S_SPD;
-	}
+		key_d(ptr, p, px_sub_dy, py_add_dx);
 }
 
 void	move_angle(t_keys keycode, t_cube *ptr)

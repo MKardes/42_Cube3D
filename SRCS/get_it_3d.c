@@ -1,67 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_it_3d.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mkardes <mkardes@student.42kocaeli.com.tr  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/12 12:39:03 by mkardes           #+#    #+#             */
+/*   Updated: 2023/03/12 12:58:22 by mkardes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../INC/cube.h"
 
-int get_image(int direction, float ra)
+int	get_image(int direction, float ra)
 {
-    if (direction)
-    {
-        //up down
-        if (ra <= 2 * PI && ra >= PI)
-            return (0);         //NORTH
-        else
-            return (1);         //SOUTH
-    }
-    else
-    {
-        //right left
-        if (ra <= 3 * PI / 2 && ra >= PI / 2)
-            return (2);         //WEST
-        else
-            return (3);         //EAST
-    }
-    return (0);
+	if (direction)
+	{
+		if (ra <= 2 * PI && ra >= PI)
+			return (0);
+		else
+			return (1);
+	}
+	else
+	{
+		if (ra <= 3 * PI / 2 && ra >= PI / 2)
+			return (2);
+		else
+			return (3);
+	}
+	return (0);
 }
 
-/* void    draw_column(t_cube *cube, t_vect start, t_vect end, int img, float ty_step, float ty_off)
+// r.x = ra | r.y = r  // x_dr.x = x x_dr.y = direction
+void	get_it_3d(t_cube *ptr, float distance, t_vect r, t_vect x_dr)
 {
-}
- */
-void    get_it_3d(t_cube *ptr, float distance, float ra, int r, int direction, float x)
-{
-    int (img) = get_image(direction, ra);
-    float (ca) = ptr->p->a - ra;
-    if (ca < 0)
-        ca += 2 * PI;
-    if (ca > 2 * PI)
-        ca -= 2 * PI;
-    distance = distance * cos(ca);
-
-    float (lineH) = WIN_Y * 10 / distance * LENGTH;
-
-    float ty_step = (ptr->textures[img].length / 4) /(float)lineH;
-    float ty_off = 0;
-    if (lineH > 500 * WALLH)
-    {
-        ty_off = (lineH - 500 * WALLH) / 2.0;
-        lineH = 500 * WALLH;
-    }
-
-    t_vect (start) = (t_vect){.x = r, .y = WIN_Y / 2 - lineH / 2};
-    t_vect (end) = (t_vect){.x = r, .y = WIN_Y / 2 + lineH / 2};
-
-    float ty = ty_step * ty_off;
-    float tx = (int)(x * SQR_X * 16); 
-    while (start.y <= end.y)
-    {
-        /* if ((int)tx + (int)ty * (ptr->textures[img].length / 4) > (ptr->textures[img].length / 4) * (ptr->textures[img].length / 4))
-        {
-            ty-=ty_step;
-        } */
-        ptr->frame->addr[(int)start.x + (int)start.y * WIN_X] = ptr->textures[img].addr[(int)tx + (int)ty * (ptr->textures[img].length / 4)];
-        start.y++;
-        ty+=ty_step;
-    }
-    /* if (direction)
-        draw_line(ptr, start, end, CYAN);
-    else
-        draw_line(ptr, start, end, 0x0000CFCF); */
+	int (img) = get_image(x_dr.y, r.x);
+	float (ca) = ptr->p->a - r.x;
+	if (ca < 0)
+		ca += 2 * PI;
+	if (ca > 2 * PI)
+		ca -= 2 * PI;
+	distance = distance * cos(ca);
+	float (lineH) = WIN_Y * 10 / distance * LENGTH;
+	float (ty_step) = (ptr->textures[img].length / 4) / (float)lineH;
+	float (ty_off) = 0;
+	if (lineH > 500 * WALLH)
+	{
+		ty_off = (lineH - 500 * WALLH) / 2.0;
+		lineH = 500 * WALLH;
+	}
+	float (start_y) = WIN_Y / 2 - lineH / 2;
+	float (ty) = ty_step * ty_off;
+	float (tx) = (int)(x_dr.x * SQR_X * 12);
+	while (start_y <= WIN_Y / 2 + lineH / 2)
+	{
+		ptr->frame->addr[(int)r.y + (int)start_y * WIN_X] = ptr->textures[img]
+			.addr[(int)tx + ((int)ty - 24) * (ptr->textures[img].length / 4)];
+		start_y++;
+		ty += ty_step;
+	}
 }
