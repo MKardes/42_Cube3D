@@ -12,6 +12,11 @@
 
 #include "../INC/cube.h"
 
+		if ((int)r.y + (int)start_y * WIN_X < WIN_X * WIN_Y && (int)r.y \
++ (int)start_y * WIN_X > 0 && (int)tx + ((int)ty - 24) * (ptr->textures[img]\
+.length / 4) > (ptr->textures[img].length / 4) * (ptr->textures[img].length / 4)\
+&& (int)tx + ((int)ty - 24) * (ptr->textures[img].length / 4) > 0)
+			continue ;
 // 0 NO // 1 SO // 2 WE (/ 3 EA
 int	get_image(int direction, float ra)
 {
