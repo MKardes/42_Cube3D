@@ -13,98 +13,80 @@
 #include "../INC/cube.h"
 
 //60 == 1.05    66 == 1.155   1.15
-void	up_down(t_cube *ptr, float ra, float *distH, t_vect *rayH)
+
+void	continue_casting(t_cube *ptr, t_vect d, t_vect *ray, float *dist)
 {
-	float (aTan) = -1 / tan(ra);
 	float (dof) = 0;
 	int (mx) = 0;
 	int (my) = 0;
-	float (dy) = 0;
-	float (dx) = 0;
+	while (dof < ptr->map.cd_x + 1)
+	{
+		mx = (int)ray->x >> BIT;
+		my = (int)ray->y >> BIT;
+		if (my >= 0 && mx >= 0 && my < ptr->map.cd_y
+			&& mx < ptr->map.cd_x + 1 && ptr->map.map[my][mx] == '1')
+		{
+			*dist = distance(ptr->p->p, *ray);
+			break ;
+		}
+		ray->x += d.x;
+		ray->y += d.y;
+		dof += 1;
+	}
+}
+
+void	up_down(t_cube *ptr, float ra, float *distH, t_vect *rayH)
+{
+	float (aTan) = -1 / tan(ra);
+	t_vect (d) = (t_vect){.x = 0};
 	if (ra > PI)
 	{
 		rayH->y = (((int)ptr->p->p.y >> BIT) << BIT) - 0.0001;
 		rayH->x = (ptr->p->p.y - rayH->y) * aTan + ptr->p->p.x;
-		dy = -SQR_X;
-		dx = -dy * aTan;
+		d.y = -SQR_X;
+		d.x = -d.y * aTan;
 	}
 	if (ra < PI && ra > 0)
 	{
 		rayH->y = (((int)ptr->p->p.y >> BIT) << BIT) + SQR_X;
 		rayH->x = (ptr->p->p.y - rayH->y) * aTan + ptr->p->p.x;
-		dy = SQR_X;
-		dx = -dy * aTan;
+		d.y = SQR_X;
+		d.x = -d.y * aTan;
 	}
 	if (ra == PI || ra == 0)
 	{
 		rayH->y = ptr->p->p.y;
 		rayH->x = ptr->p->p.x;
-		dof = 8;
+		return ;
 	}
-	while (dof < HEIGH)
-	{
-		mx = (int)rayH->x >> BIT;
-		my = (int)rayH->y >> BIT;
-		if (my >= 0 && mx >= 0 && my < HEIGH - 1
-			&& mx < WEIGH - 1 && ptr->f_map[my][mx] == '1')
-		{
-			*distH = distance(ptr->p->p, *rayH);
-			dof = HEIGH;
-		}
-		else
-		{
-			rayH->x += dx;
-			rayH->y += dy;
-			dof += 1;
-		}
-	}
+	continue_casting(ptr, d, rayH, distH);
 }
 
 void	right_left(t_cube *ptr, float ra, float *distW, t_vect *rayW)
 {
 	float (nTan) = -tan(ra);
-	float (dof) = 0;
-	int (mx) = 0;
-	int (my) = 0;
-	float (dy) = 0;
-	float (dx) = 0;
+	t_vect (d) = (t_vect){.x = 0};
 	if (ra > (PI / 2) && ra < (3 * PI / 2))
 	{
 		rayW->x = (((int)ptr->p->p.x >> BIT) << BIT) - 0.0001;
 		rayW->y = (ptr->p->p.x - rayW->x) * nTan + ptr->p->p.y;
-		dx = -SQR_X;
-		dy = -dx * nTan;
+		d.x = -SQR_X;
+		d.y = -d.x * nTan;
 	}
 	if (ra < (PI / 2) || ra > (3 * PI / 2))
 	{
 		rayW->x = (((int)ptr->p->p.x >> BIT) << BIT) + SQR_X;
 		rayW->y = (ptr->p->p.x - rayW->x) * nTan + ptr->p->p.y;
-		dx = SQR_X;
-		dy = -dx * nTan;
+		d.x = SQR_X;
+		d.y = -d.x * nTan;
 	}
 	if (ra == (PI / 2) || ra == (3 * PI / 2))
 	{
 		rayW->y = ptr->p->p.y;
 		rayW->x = ptr->p->p.x;
-		dof = 8;
+		return ;
 	}
-	while (dof < WEIGH)
-	{
-		mx = (int)rayW->x >> BIT;
-		my = (int)rayW->y >> BIT;
-		if (my >= 0 && mx >= 0 && my < HEIGH - 1
-			&& mx < WEIGH - 1 && ptr->f_map[my][mx] == '1')
-		{
-			*distW = distance(ptr->p->p, *rayW);
-			dof = WEIGH;
-		}
-		else
-		{
-			rayW->x += dx;
-			rayW->y += dy;
-			dof += 1;
-		}
-	}
+	continue_casting(ptr, d, rayW, distW);
 }
 
 int	get_correct_dist(float distW, float *distH, float *Hx, float Wy)

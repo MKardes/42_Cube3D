@@ -20,7 +20,7 @@ int	mouse_move(int x, int y, t_cube *cube)
 	mlx_mouse_get_pos(cube->win, &x, &y);
 	if (cube->mouse_first > cube->mouse_last)
 	{
-		cube->p->a -= 0.1 * P_SPD * 3;
+		cube->p->a -= 0.1 * P_SPD * 4;
 		if (cube->p->a < 2 * PI)
 			cube->p->a += 2 * PI;
 		cube->p->dx = cos(cube->p->a) * 5;
@@ -28,7 +28,7 @@ int	mouse_move(int x, int y, t_cube *cube)
 	}
 	else if (cube->mouse_first < cube->mouse_last)
 	{
-		cube->p->a += 0.1 * P_SPD * 3;
+		cube->p->a += 0.1 * P_SPD * 4;
 		if (cube->p->a > 2 * PI)
 			cube->p->a -= 2 * PI;
 		cube->p->dx = cos(cube->p->a) * 5;

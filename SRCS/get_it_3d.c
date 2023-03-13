@@ -12,6 +12,7 @@
 
 #include "../INC/cube.h"
 
+// 0 NO // 1 SO // 2 WE (/ 3 EA
 int	get_image(int direction, float ra)
 {
 	if (direction)

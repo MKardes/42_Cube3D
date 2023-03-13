@@ -63,53 +63,35 @@ void	open_textures(t_cube *cube)
 	int (y) = 0;
 	cube->textures = (t_data *)malloc(sizeof(t_data) * 4);
 	cube->textures[0].img = mlx_xpm_file_to_image(cube->mlx,
-			"./Assets/LAVA/lava_1_diffuseOriginal.xpm", &x, &y);
-	cube->textures[0].addr = (int *)mlx_get_data_addr(cube->textures[0].img,
-			&x, &cube->textures[0].length, &x);
+			cube->map.lines[0][1], &x, &y);
 	cube->textures[1].img = mlx_xpm_file_to_image(cube->mlx,
-			"./Assets/LAVA/lava_2_diffuseOriginal.xpm", &x, &y);
-	cube->textures[1].addr = (int *)mlx_get_data_addr(cube->textures[1].img,
-			&x, &cube->textures[1].length, &x);
+			cube->map.lines[1][1], &x, &y);
 	cube->textures[2].img = mlx_xpm_file_to_image(cube->mlx,
-			"./Assets/LAVA/lava_3_diffuseOriginal.xpm", &x, &y);
-	cube->textures[2].addr = (int *)mlx_get_data_addr(cube->textures[2].img,
-			&x, &cube->textures[2].length, &x);
+			cube->map.lines[2][1], &x, &y);
 	cube->textures[3].img = mlx_xpm_file_to_image(cube->mlx,
-			"./Assets/LAVA/lava_4_diffuseOriginal.xpm", &x, &y);
-	cube->textures[3].addr = (int *)mlx_get_data_addr(cube->textures[3].img,
-			&x, &cube->textures[3].length, &x);
+			cube->map.lines[3][1], &x, &y);
+	cube->textures[0].addr = (int *)mlx_get_data_addr(cube->textures[0]
+			.img, &x, &cube->textures[0].length, &x);
+	cube->textures[1].addr = (int *)mlx_get_data_addr(cube->textures[1]
+			.img, &x, &cube->textures[1].length, &x);
+	cube->textures[2].addr = (int *)mlx_get_data_addr(cube->textures[2]
+			.img, &x, &cube->textures[2].length, &x);
+	cube->textures[3].addr = (int *)mlx_get_data_addr(cube->textures[3]
+			.img, &x, &cube->textures[3].length, &x);
 }
 
-/**	cube->textures[0].img = mlx_xpm_file_to_image(cube->mlx,
- * "./Assets/Wall/StoneWall.xpm", &x, &y);
- *	cube->textures[0].addr = (int *)mlx_get_data_addr(cube->textures[0].img,
- *	&x, &cube->textures[0].length, &x);
- *	cube->textures[1].img = mlx_xpm_file_to_image(cube->mlx,
- *	"./Assets/Wall/ParticleBoard.xpm", &x, &y);
- *	cube->textures[1].addr = (int *)mlx_get_data_addr(cube->textures[1].img,
- *	&x, &cube->textures[1].length, &x);
- *	cube->textures[2].img = mlx_xpm_file_to_image(cube->mlx,
- *	"./Assets/Wall/Bricks_11.xpm", &x, &y);
- *	cube->textures[2].addr = (int *)mlx_get_data_addr(cube->textures[2].img,
- *	&x, &cube->textures[2].length, &x);
- *	cube->textures[3].img = mlx_xpm_file_to_image(cube->mlx,
- *	"./Assets/Wall/Bricks_03.xpm", &x, &y);
- *	cube->textures[3].addr = (int *)mlx_get_data_addr(cube->textures[3].img,
- *	&x, &cube->textures[3].length, &x); 
- */
-
 //get_it is temporarly in that scope
-t_cube	*start_window(void)
+t_cube	*start_window(t_map map)
 {
 	t_cube	*cube;
 
 	int (a) = 0;
 	cube = (t_cube *)malloc(sizeof(t_cube));
-	cube->f_map = get_it();
+	cube->map = map;
 	cube->frame = malloc(sizeof(t_data));
 	cube->mlx = mlx_init();
 	cube->win = mlx_new_window(cube->mlx, WIN_X, WIN_Y, "Cube3D");
-	cube->p = get_player_coordinate(cube->f_map);
+	cube->p = get_player_coordinate(cube->map.map);
 	cube->frame->img = mlx_new_image(cube->mlx, WIN_X, WIN_Y);
 	cube->frame->addr = (int *)mlx_get_data_addr(cube->frame->img, &a, &a, &a);
 	open_textures(cube);

@@ -25,3 +25,21 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return ((char *)(s + i));
 }
+
+char	*ft_strnewchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != (char)c)
+	{
+		if (!*(s + i))
+		{
+			if (*(s + i) == c)
+				return ((char *)(s));
+			return (0);
+		}
+		i++;
+	}
+	return ((char *)(s + i));
+}

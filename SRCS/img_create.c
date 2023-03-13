@@ -48,14 +48,14 @@ int	map_to_img(t_cube *ptr)
 
 	y = 0;
 	i = 0;
-	while (ptr->f_map[i])
+	while (ptr->map.map[i])
 	{	
 		x = 0;
 		j = 0;
-		while (ptr->f_map[i][j] != '\n' && ptr->f_map[i][j] != '\0')
+		while (ptr->map.map[i][j] != '\n' && ptr->map.map[i][j] != '\0')
 		{
-			if (ptr->f_map[i][j] != ' ')
-				square_put(ptr->f_map[i][j] - 48, x, y, ptr);
+			if (ptr->map.map[i][j] != ' ')
+				square_put(ptr->map.map[i][j] - 48, x, y, ptr);
 			x += SQR_X;
 			j++;
 		}
@@ -65,6 +65,11 @@ int	map_to_img(t_cube *ptr)
 	return (1);
 }
 
+int	get_rgb(t_pixel pix)
+{
+	return (pix.r << 16 | pix.g << 8 | pix.b);
+}
+
 int	top_bot_to_img(t_cube *ptr)
 {
 	int	i;
@@ -72,8 +77,8 @@ int	top_bot_to_img(t_cube *ptr)
 	i = 0;
 	while (i < WIN_X * (WIN_Y / 2))
 	{
-		ptr->frame->addr[i] = 0x3A3241;
-		ptr->frame->addr[i + (WIN_X * WIN_Y / 2)] = 0x9A3241;
+		ptr->frame->addr[i] = get_rgb(ptr->map.f_c[1]);
+		ptr->frame->addr[i + (WIN_X * WIN_Y / 2)] = get_rgb(ptr->map.f_c[0]);
 		i++;
 	}
 	return (1);

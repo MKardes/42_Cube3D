@@ -11,10 +11,33 @@
 /* ************************************************************************** */
 
 #include "../INC/cube.h"
-
+//map
 int	ft_key_esc(t_cube *ptr)
 {
+	mlx_destroy_image(ptr->mlx, ptr->frame->img);
 	mlx_destroy_window((*ptr).mlx, (*ptr).win);
+	int (i) = -1;
+	int (j) = -1;
+	while (++i < 4)
+	{
+		j = -1;
+		while (++j < 3)
+			free(ptr->map.lines[i][j]);
+		free(ptr->map.lines[i]);
+		mlx_destroy_image(ptr->mlx, ptr->textures[i].img);
+	}
+	i = -1;
+	while (ptr->map.map[++i])
+		free(ptr->map.map[i]);
+	free(ptr->map.map[i]);
+	free(ptr->map.map);
+	free(ptr->map.lines);
+	free(ptr->map.f_c);
+	free(ptr->textures);
+	free(ptr->frame);
+	free(ptr->p);
+	free(ptr);
+	system("leaks cub3D");
 	exit(0);
 }
 
