@@ -12,6 +12,32 @@
 
 #include "../INC/cube.h"
 
+int	pfree(int len, t_map *map, int flag)
+{
+	int (i) = -1;
+	int (j) = -1;
+	int (cnt) = flag + 1;
+	if (flag > 4)
+		cnt = 4;
+	while (++i < cnt && flag != 11)
+	{
+		j = -1;
+		while (++j < 3)
+			free(map->lines[i][j]);
+		free(map->lines[i]);
+	}
+	free(map->lines);
+	i = -1;
+	while (++i < map->cd_y && flag != 11 && flag != 0
+		&& flag != 1 && flag != 2 && flag != 3)
+		free(map->map[i]);
+	if (flag != 11 && flag != 0 && flag != 1
+		&& flag != 2 && flag != 3)
+		free(map->map);
+	free(map->f_c);
+	return (len);
+}
+
 void	get_the_map(t_map *map, int fd, char *buff, int line)
 {
 	buff = get_next_line(fd);
@@ -39,7 +65,7 @@ void	map_init(t_map *map, int fd, char *str)
 	int (y) = -1;
 	int (cnt) = 0;
 	int (line) = 0;
-	map->cd_y = ft_checklinecount(str);
+	map->cd_y = ft_checklinecount(str, map);
 	char *(buff) = NULL;
 	while (++y < map->cd_y && cnt < 6)
 	{
@@ -78,12 +104,12 @@ void	wall_check(t_map *map)
 			{
 				if (j == 0 || i == 0
 					|| i == map->cd_y - 1 || j == map->cd_x - 2)
-					exit(printf("Error: Map is open!\n"));
+					exit(pfree(printf("Error: Map is open!\n"), map, 12));
 				if ((map->map[i - 1][j] == ' ')
 					|| (map->map[i + 1][j] == ' ')
 					|| (map->map[i][j - 1] == ' ')
 					|| (map->map[i][j + 1] == ' '))
-					exit(printf("Errror: Map is open!\n"));
+					exit(pfree(printf("Errror: Map is open!\n"), map, 12));
 			}
 		}
 	}
@@ -100,6 +126,7 @@ t_map	map_checker(char *str)
 	if (fd < 0)
 	{
 		printf("Error: %s cannot open!\n", str);
+		pfree(0, &map, 11);
 		exit(EXIT_FAILURE);
 	}
 	map_init(&map, fd, str);

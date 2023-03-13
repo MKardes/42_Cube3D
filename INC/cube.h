@@ -98,12 +98,6 @@
 
 # define S_SPD 0.2
 
-# define HEIGH 21
-# define WIDTH 23
-
-# define MAP_X (WIDTH * SQR_X) //WIDTH * SQR_X
-# define MAP_Y (HEIGH * SQR_Y) //HEIGH * SQR_Y
-
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
@@ -181,42 +175,42 @@ t_map	map_checker(char *av);
 void	ft_mapcontrol(t_map *map, char *buff, int cnt);
 void	ft_mapcontrol2(t_map *map, char *buff, int cnt);
 void	ft_mapcontrol3(t_map *map, int fd, char *buff, int line);
-void 	rgb_control(char **str);
 void	get_the_map(t_map *map, int fd, char *buff, int line);
 
 //window
-t_cube  *start_window(t_map map);
+t_cube	*start_window(t_map map);
 
 // to image
-int	map_to_img(t_cube *ptr);
-int	top_bot_to_img(t_cube *ptr);
+int		map_to_img(t_cube *ptr);
+int		top_bot_to_img(t_cube *ptr);
 
 //loop
-int     loop(t_cube *ptr);
+int		loop(t_cube *ptr);
 
 //put functions
-int     player_put(t_cube *ptr);
+int		player_put(t_cube *ptr);
 
 //keys;
 int		key_press(int keycode, t_cube *cube);
 int		key_release(int keycode, t_cube *cube);
 void	move_direction(t_keys keycode, t_cube *ptr);
 void	move_angle(t_keys keycode, t_cube *ptr);
-int     mouse_move(int x, int y, t_cube *cube);
-int     ft_key_esc(t_cube *ptr);
-void    key_w(t_cube *ptr, t_vect p, int px_add_dx, int py_add_dy);
-void    key_s(t_cube *ptr, t_vect p, int px_sub_dx, int py_sub_dy);
-void    key_a(t_cube *ptr, t_vect p, int px_add_dy, int py_sub_dx);
-void    key_d(t_cube *ptr, t_vect p, int px_sub_dy, int py_add_dx);
+int		mouse_move(int x, int y, t_cube *cube);
+int		ft_key_esc(t_cube *ptr);
+void	key_w(t_cube *ptr, t_vect p, int px_add_dx, int py_add_dy);
+void	key_s(t_cube *ptr, t_vect p, int px_sub_dx, int py_sub_dy);
+void	key_a(t_cube *ptr, t_vect p, int px_add_dy, int py_sub_dx);
+void	key_d(t_cube *ptr, t_vect p, int px_sub_dy, int py_add_dx);
 
 //draw
-void    draw_rays(t_cube *ptr);
-void    get_it_3d(t_cube *ptr, float distance, t_vect r, t_vect x_dr);
+void	draw_rays(t_cube *ptr);
+void	get_it_3d(t_cube *ptr, float distance, t_vect r, t_vect x_dr);
 
 //utils
-int		ft_checklinecount(char *str);
-void 	error_fc(int code, char **s_buff, char **s2_buff);
+int		ft_checklinecount(char *str, t_map *map);
 int		my_free(int c, char **s1, char **s2);
-float   distance(t_vect p1, t_vect p2);
+float	distance(t_vect p1, t_vect p2);
+int		pfree(int len, t_map *map, int flag);
+void	rgb_control(char **str, char **s_buff, t_map *map);
 
 #endif

@@ -23,18 +23,20 @@ void	ft_mapcontrol(t_map *map, char *buff, int cnt)
 	while (map->lines[cnt][i])
 		i++;
 	if (i != 2)
-		exit(printf("Error: Direction arguments count must be 2!\n"));
+		exit(pfree(printf("Error: Direction arguments count must be 2!\n"),
+				map, cnt));
 	if (!(ft_strstr(map->lines[cnt][0], "NO")
 		|| ft_strstr(map->lines[cnt][0], "SO")
 		|| ft_strstr(map->lines[cnt][0], "WE")
 		|| ft_strstr(map->lines[cnt][0], "EA")))
 	{
 		printf("Error: First arg is must be NO - SO - WE - EA\n");
-		exit(EXIT_FAILURE);
+		exit(pfree(0, map, cnt));
 	}
 	fd = open(map->lines[cnt][1], O_RDONLY);
 	if (fd < 0)
-		exit(printf("Error: %s can not find!\n", map->lines[cnt][1]));
+		exit(pfree(printf("Error: %s can not find!\n",
+					map->lines[cnt][1]), map, cnt));
 	close(fd);
 }
 
@@ -52,12 +54,15 @@ void	ft_mapcontrol2(t_map *map, char *buff, int cnt)
 	while (s2_buff[j])
 		++j;
 	if (i != 2)
-		exit(printf("Error: F-C args count must be 2!\n"));
+		exit(pfree(my_free(printf("Error: F-C args count must be 2!\n"),
+					s2_buff, s_buff), map, 3));
 	if (j != 3)
-		exit(printf("Error: F-C sec.args count must be 3!\n"));
+		exit(pfree(my_free(printf("Error: F-C sec.args count must be 3!\n"),
+					s2_buff, s_buff), map, 3));
 	if (!(ft_strstr(s_buff[0], "F") || ft_strstr(s_buff[0], "C")))
-		exit(printf("Error: First arg is must be F - C\n"));
-	rgb_control(s2_buff);
+		exit(pfree(my_free(printf("Error: First arg is must be F - C\n"),
+					s2_buff, s_buff), map, 3));
+	rgb_control(s2_buff, s_buff, map);
 	map->f_c[cnt % 2].r = ft_atoi(s2_buff[0]);
 	map->f_c[cnt % 2].g = ft_atoi(s2_buff[1]);
 	map->f_c[cnt % 2].b = ft_atoi(s2_buff[2]);
@@ -111,10 +116,10 @@ void	ft_mapcontrol3(t_map *map, int fd, char *buff, int line)
 			if (ft_strchr("NEWS", map->map[i][j]))
 				map->player_cnt += 1;
 			else if (!ft_strnewchr("01NEWS ", map->map[i][j]))
-				exit(printf("Error: Wrong map character!\n"));
+				exit(pfree(printf("Error: Wrong map character!\n"), map, 12));
 		}
 	}
 	if (map->player_cnt != 1)
-		exit(printf("Error: Character!\n"));
+		exit(pfree(printf("Error: Character!\n"), map, 12));
 	fill_spaces(map);
 }

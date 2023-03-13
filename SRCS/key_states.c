@@ -37,7 +37,6 @@ int	ft_key_esc(t_cube *ptr)
 	free(ptr->frame);
 	free(ptr->p);
 	free(ptr);
-	system("leaks cub3D");
 	exit(0);
 }
 

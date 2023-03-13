@@ -12,7 +12,7 @@
 
 #include "../INC/cube.h"
 
-int	ft_checklinecount(char *str)
+int	ft_checklinecount(char *str, t_map *map)
 {
 	char	c;
 
@@ -22,7 +22,7 @@ int	ft_checklinecount(char *str)
 	if (fd == -1)
 	{
 		printf("Error: File not found!\n");
-		exit(1);
+		exit(pfree(0, map, 11));
 	}
 	while (byte != 0)
 	{
@@ -63,7 +63,7 @@ int	my_free(int c, char **s1, char **s2)
 	return (c);
 }
 
-void	rgb_control(char **str)
+void	rgb_control(char **str, char **s_buff, t_map *map)
 {
 	int (i);
 	int (j) = -1;
@@ -72,6 +72,7 @@ void	rgb_control(char **str)
 		i = -1;
 		while (str[j][++i])
 			if (!ft_isdigit(str[j][i]))
-				exit(printf("Error: RGB values should be digit!\n"));
+				exit(pfree(my_free(printf("Error: RGB values \
+should be digit!\n"), str, s_buff), map, 3));
 	}
 }
